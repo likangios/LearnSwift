@@ -7,18 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7913C23421300DC900126C77 /* swiftCommond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7913C23321300DC900126C77 /* swiftCommond.swift */; };
 		79DD6954212BB88B0087747A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DD6953212BB88B0087747A /* AppDelegate.swift */; };
 		79DD6956212BB88B0087747A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DD6955212BB88B0087747A /* ViewController.swift */; };
 		79DD6959212BB88B0087747A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79DD6957212BB88B0087747A /* Main.storyboard */; };
 		79DD695B212BB88E0087747A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79DD695A212BB88E0087747A /* Assets.xcassets */; };
 		79DD695E212BB88E0087747A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79DD695C212BB88E0087747A /* LaunchScreen.storyboard */; };
 		79DD69EA212CED1F0087747A /* LEDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DD69E9212CED1F0087747A /* LEDView.swift */; };
-		79DD69EC212D5D890087747A /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DD69EB212D5D890087747A /* ControlView.swift */; };
+		79DD6A01212FED950087747A /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DD6A00212FED940087747A /* SliderView.swift */; };
+		79DD6A03212FEE6A0087747A /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DD6A02212FEE6A0087747A /* ControlView.swift */; };
 		E7A09D8BBDD8FE370202D17E /* Pods_LearnSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DBC0F53941F63987AA82EF /* Pods_LearnSwift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		22DBC0F53941F63987AA82EF /* Pods_LearnSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LearnSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7913C23321300DC900126C77 /* swiftCommond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftCommond.swift; sourceTree = "<group>"; };
 		79DD6950212BB88B0087747A /* LearnSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79DD6953212BB88B0087747A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79DD6955212BB88B0087747A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -27,7 +30,8 @@
 		79DD695D212BB88E0087747A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		79DD695F212BB88E0087747A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79DD69E9212CED1F0087747A /* LEDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LEDView.swift; sourceTree = "<group>"; };
-		79DD69EB212D5D890087747A /* ControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
+		79DD6A00212FED940087747A /* SliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderView.swift; sourceTree = "<group>"; };
+		79DD6A02212FEE6A0087747A /* ControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
 		A57F31A097478B36D0310ACD /* Pods-LearnSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearnSwift/Pods-LearnSwift.release.xcconfig"; sourceTree = "<group>"; };
 		D23C4BA4F2CA55BCAC53AFDD /* Pods-LearnSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LearnSwift/Pods-LearnSwift.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,9 +79,11 @@
 			isa = PBXGroup;
 			children = (
 				79DD6953212BB88B0087747A /* AppDelegate.swift */,
+				7913C23321300DC900126C77 /* swiftCommond.swift */,
 				79DD69E9212CED1F0087747A /* LEDView.swift */,
 				79DD6955212BB88B0087747A /* ViewController.swift */,
-				79DD69EB212D5D890087747A /* ControlView.swift */,
+				79DD6A02212FEE6A0087747A /* ControlView.swift */,
+				79DD6A00212FED940087747A /* SliderView.swift */,
 				79DD6957212BB88B0087747A /* Main.storyboard */,
 				79DD695A212BB88E0087747A /* Assets.xcassets */,
 				79DD695C212BB88E0087747A /* LaunchScreen.storyboard */,
@@ -232,10 +238,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79DD69EC212D5D890087747A /* ControlView.swift in Sources */,
 				79DD6956212BB88B0087747A /* ViewController.swift in Sources */,
 				79DD6954212BB88B0087747A /* AppDelegate.swift in Sources */,
 				79DD69EA212CED1F0087747A /* LEDView.swift in Sources */,
+				7913C23421300DC900126C77 /* swiftCommond.swift in Sources */,
+				79DD6A01212FED950087747A /* SliderView.swift in Sources */,
+				79DD6A03212FEE6A0087747A /* ControlView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

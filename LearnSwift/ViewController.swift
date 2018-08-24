@@ -9,10 +9,18 @@
 import UIKit
 import SnapKit
 import Hue
+import RxSwift
+import RxCocoa
+
+
 class ViewController: UIViewController {
 
     lazy var ledView:LEDView = {
        let view = LEDView()
+        return view
+    }()
+    lazy var controlView: ControlView = {
+        let view = ControlView()
         return view
     }()
     lazy var speedSlider:UISlider = {
@@ -52,13 +60,18 @@ class ViewController: UIViewController {
     }();
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.black
-        view.addSubview(ledView)
-        view.addSubview(speedSlider)
-        view.addSubview(greenSlider)
-        view.addSubview(blueSlider)
-        view.addSubview(redSlider)
-        view.addSubview(fontSizeSlider)
+        view.backgroundColor = UIColor.white
+//        view.addSubview(ledView)
+//        view.addSubview(speedSlider)
+//        view.addSubview(greenSlider)
+//        view.addSubview(blueSlider)
+//        view.addSubview(redSlider)
+//        view.addSubview(fontSizeSlider)
+        view.addSubview(controlView)
+        controlView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        /*
         ledView.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
             make.size.equalTo(CGSize(width: view.frame.height, height: view.frame.width))
@@ -98,16 +111,44 @@ class ViewController: UIViewController {
             make.bottom.equalTo(fontSizeSlider.snp.top).offset(-20)
             make.height.equalTo(20)
         }
-        greenSlider.addTarget(self, action: #selector(sliderValueChanged), for: UIControlEvents.valueChanged)
-        redSlider.addTarget(self, action: #selector(sliderValueChanged), for: UIControlEvents.valueChanged)
-        blueSlider.addTarget(self, action: #selector(sliderValueChanged), for: UIControlEvents.valueChanged)
+//        greenSlider.addTarget(self, action: #selector(sliderValueChanged), for: UIControlEvents.valueChanged)
+//        redSlider.addTarget(self, action: #selector(sliderValueChanged), for: UIControlEvents.valueChanged)
+//        blueSlider.addTarget(self, action: #selector(sliderValueChanged), for: UIControlEvents.valueChanged)
         fontSizeSlider.addTarget(self, action: #selector(fontSliderValueChanged), for: UIControlEvents.valueChanged)
         speedSlider.addTarget(self, action: #selector(speedSliderValueChanged), for: UIControlEvents.valueChanged)
+                
+        
+//        let greenSliderValue = Variable<Float>(1.0)
+//        _ = greenSlider.rx.value <-> greenSliderValue
+//
+//        let blueSliderValue = Variable<Float>(1.0)
+//        _ = blueSlider.rx.value <-> blueSliderValue
+//
+//        let redSliderValue = Variable<Float>(1.0)
+//        _ = redSlider.rx.value <-> redSliderValue
+//
+//        greenSliderValue.asObservable().subscribe(onNext: { (value) in
+//            print("greenSliderValue value is \(value)")
+//        }, onError: nil, onCompleted: nil, onDisposed: nil).dispose()
+//
+//        redSliderValue.asObservable().subscribe(onNext: { (value) in
+//            print("redSliderValue value is \(value)")
+//        }, onError: nil, onCompleted: nil, onDisposed: nil).dispose()
+//
+//        blueSliderValue.asObservable().subscribe(onNext: { (value) in
+//            print("blueSliderValue value is \(value)")
+//        }, onError: nil, onCompleted: nil, onDisposed: nil).dispose()
 
+        
+        
         greenSlider.value = UserDefaults.standard.value(forKey: "color_g") as? Float  ?? 0.5
         redSlider.value = UserDefaults.standard.value(forKey: "color_r") as? Float  ?? 0.5
         blueSlider.value = UserDefaults.standard.value(forKey: "color_b") as? Float  ?? 0.5
+        speedSlider.value = UserDefaults.standard.value(forKey: "speed") as? Float  ?? 0.5
+
+        ledView.speed = CGFloat(UserDefaults.standard.value(forKey: "speed") as? Float  ?? 10)
         sliderValueChanged()
+         */
     }
 
     override func didReceiveMemoryWarning() {
@@ -132,6 +173,8 @@ extension ViewController {
     }
     @objc func speedSliderValueChanged() -> Void {
         ledView.speed = CGFloat(speedSlider.value)
+        UserDefaults.standard.set(speedSlider.value, forKey: "speed")
+
     }
     
 }
