@@ -22,7 +22,7 @@ class SliderView: UIView {
         label.textAlignment = NSTextAlignment.left
         return label;
     }()
-    var obserable:Observable<Float>?
+    var obserable = PublishSubject<Float>()
     
     let disposeBag = DisposeBag()
 
@@ -38,10 +38,8 @@ class SliderView: UIView {
         self.sMaxValue = sdMaxValue
         self.sTintColor = sdTintColor
         creatSubView()
-        self.obserable = slider.rx.value.asObservable()
-//        .subscribe(onNext: { (value) in
-//            print("slider value \(value)")
-//        }).disposed(by: disposeBag)
+        slider.rx.value.asObservable().bind(to: obserable).disposed(by: disposeBag)
+
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

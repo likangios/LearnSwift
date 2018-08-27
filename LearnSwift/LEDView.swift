@@ -10,7 +10,17 @@ import UIKit
 
 class LEDView: UIView {
     let timeInterval:Double = 0.01
-    var fontSize:CGFloat = 50
+    var _fontSize:CGFloat = 50
+    var fontSize: CGFloat{
+        get {
+            return _fontSize;
+        }
+        set {
+            _fontSize = newValue
+            self.content = _content
+            
+        }
+    }
     var fontName:String = "system"
     var labels:[UILabel] = []
     var animaingLabel:[UILabel] = []
@@ -29,8 +39,11 @@ class LEDView: UIView {
             return _content;
         }
         set {
-            _content = newValue
-            self.creatLabels()
+            if ((newValue?.count) != nil) {
+                _content = newValue
+                self.creatLabels()
+                
+            }
         }
     }
     var fontColor: UIColor {
@@ -59,7 +72,7 @@ class LEDView: UIView {
 extension LEDView {
     
     func creatLabels() -> Void {
-        let width = getLabWidth(labelStr: content ?? "", font: UIFont.systemFont(ofSize: fontSize), width: maxWidth).width
+        let width = getLabWidth(labelStr: self.content ?? "", font: UIFont.systemFont(ofSize: fontSize), width: maxWidth).width
         contentWidth = width;
         
         labels.removeAll()
@@ -95,7 +108,7 @@ extension LEDView {
     }
     
     @objc func animations(timer:Timer) -> Void {
-        self.isHidden = !self.isHidden
+//        self.isHidden = !self.isHidden
         if animaingLabel.count == 0 {
             let flb = getFreeLabel()
             guard flb != nil else {
