@@ -9,7 +9,7 @@
 import UIKit
 
 class LEDView: UIView {
-    let timeInterval:Double = 0.01
+    let timeInterval:Double = 0.02
     var _fontSize:CGFloat = 50
     var fontSize: CGFloat{
         get {
@@ -33,13 +33,13 @@ class LEDView: UIView {
     private  var contentWidth:CGFloat = 0
     private let maxWidth:CGFloat = 20000
     private  var _fontColor:UIColor = UIColor.white
-    private var _content:String?
-    var content: String?{
+    private var _content:String = "点击输入框输入字幕"
+    var content: String{
         get {
-            return _content;
+            return _content.count>0 ? _content:"点击输入框输入字幕"
         }
         set {
-            if ((newValue?.count) != nil) {
+            if ((newValue.count) != nil) {
                 _content = newValue
                 self.creatLabels()
                 
@@ -54,9 +54,11 @@ class LEDView: UIView {
             _fontColor = newValue
             self.changeFontColor()
             self.isHidden = false
-            self.timer?.fireDate = Date.distantFuture
-            NSObject.cancelPreviousPerformRequests(withTarget: self)
-            self.perform(#selector(continueTimer), with: nil, afterDelay: 0.5)
+//            if self.timer?.fireDate != Date.distantFuture {
+//                self.timer?.fireDate = Date.distantFuture
+//            }
+//            NSObject.cancelPreviousPerformRequests(withTarget: self)
+//            self.perform(#selector(continueTimer), with: nil, afterDelay: 0.5)
         }
     }
 
@@ -72,13 +74,19 @@ class LEDView: UIView {
 extension LEDView {
     
     func creatLabels() -> Void {
-        let width = getLabWidth(labelStr: self.content ?? "", font: UIFont.systemFont(ofSize: fontSize), width: maxWidth).width
+        let width = getLabWidth(labelStr: self.content, font: UIFont.systemFont(ofSize: fontSize), width: maxWidth).width
         contentWidth = width;
         
         labels.removeAll()
         animaingLabel.removeAll()
         freeLabel.removeAll()
         timer?.invalidate()
+        
+        for subLabel in subviews {
+            if subLabel.isKind(of: UILabel.self) {
+                subLabel.removeFromSuperview()
+            }
+        }
         
         let count:Int = Int(ceil(UIScreen.main.bounds.height/width)) + 1
         for item in 1...count {
@@ -95,6 +103,11 @@ extension LEDView {
             labels.append(label)
             freeLabel.append(label)
             print(item)
+        }
+        
+        if speed == 0 {
+            let flb = freeLabel[0]
+            flb.frame  = CGRect(x: 0, y: flb.frame.minY, width: flb.frame.width, height: flb.frame.height)
         }
         timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(animations(timer:)), userInfo: nil, repeats: true)
         RunLoop.current.add(timer!, forMode: RunLoopMode.commonModes)
@@ -116,6 +129,9 @@ extension LEDView {
             }
             animaingLabel.append(flb!)
             timeSpace = 0;
+        }
+        guard speed > 0 else {
+            return
         }
         timeSpace += speed
         if timeSpace >= space + contentWidth{

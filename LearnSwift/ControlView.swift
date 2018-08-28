@@ -1,5 +1,5 @@
 //
-//  ControlView.swift
+//  self.swift
 //  LearnSwift
 //
 //  Created by perfay on 2018/8/22.
@@ -36,6 +36,7 @@ class ControlView: UIControl ,UIScrollViewDelegate{
     }()
     var disposeBag = DisposeBag()
     var colorObserable = PublishSubject<UIColor>()
+    var isSelectedBg:Bool = false
 
     lazy var mainView: UIView = {
         let view = UIView()
@@ -73,21 +74,51 @@ class ControlView: UIControl ,UIScrollViewDelegate{
     private var scrollSubViewL:UIView?
     private var scrollSubViewC:UIView?
     private var scrollSubViewR:UIView?
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.rx.controlEvent(.touchUpInside).subscribe { (event) in
-            print("control tap \(event)")
             self.hiddenMainView(animate: true)
         }.disposed(by: disposeBag)
         creatSubView()
-
         Observable.combineLatest(greenSlider.obserable, redSlider.obserable, blueSlider.obserable) { (g_value, red_value, blue_value) ->UIColor in
-            UserDefaults.standard.set(red_value, forKey: "color_r")
-            UserDefaults.standard.set(g_value, forKey: "color_g")
-            UserDefaults.standard.set(blue_value, forKey: "color_b")
+            if self.isSelectedBg {
+                UserDefaults.standard.set(red_value, forKey: "bg_color_r")
+                UserDefaults.standard.set(g_value, forKey: "bg_color_g")
+                UserDefaults.standard.set(blue_value, forKey: "bg_color_b")
+            }
+            else{
+                UserDefaults.standard.set(red_value, forKey: "color_r")
+                UserDefaults.standard.set(g_value, forKey: "color_g")
+                UserDefaults.standard.set(blue_value, forKey: "color_b")
+            }
             return UIColor.init(red: CGFloat(red_value), green: CGFloat(g_value), blue: CGFloat(blue_value), alpha: 1.0)
             }.bind(to: colorObserable).disposed(by: disposeBag)
+        
+        segmentControl.rx.selectedSegmentIndex.map({ (index) -> Bool in
+            return index > 0
+        }).bind { (rect) in
+            self.isSelectedBg = rect
+            if rect {
+                let red:CGFloat = CGFloat(UserDefaults.standard.value(forKey: "bg_color_r") as? Float ?? 0)
+                let blue:CGFloat = CGFloat(UserDefaults.standard.value(forKey: "bg_color_b") as? Float ?? 0)
+                let green:CGFloat = CGFloat(UserDefaults.standard.value(forKey: "bg_color_g") as? Float ?? 0)
+                self.redSlider.slider.value = Float(red);
+                self.blueSlider.slider.value = Float(blue);
+                self.greenSlider.slider.value = Float(green);
+                self.colorObserable.onNext(UIColor.init(red: red, green: green, blue: blue, alpha: 1))
+            }
+            else{
+                let red:CGFloat = CGFloat(UserDefaults.standard.value(forKey: "color_r") as? Float ?? 1)
+                let blue:CGFloat = CGFloat(UserDefaults.standard.value(forKey: "color_b") as? Float ?? 1)
+                let green:CGFloat = CGFloat(UserDefaults.standard.value(forKey: "color_g") as? Float ?? 1)
+                self.redSlider.slider.value = Float(red);
+                self.blueSlider.slider.value = Float(blue);
+                self.greenSlider.slider.value = Float(green);
+                self.colorObserable.onNext(UIColor.init(red: red, green: green, blue: blue, alpha: 1))
+            }
+        }.disposed(by: disposeBag)
+        
         
 //        let subject1 = PublishSubject<Int>()
 //        let subject2 = PublishSubject<String>()
@@ -101,9 +132,7 @@ class ControlView: UIControl ,UIScrollViewDelegate{
         self.scrollView.rx.didEndDecelerating.subscribe { (event) in
             self.pageControl.currentPage = Int(self.scrollView.contentOffset.x/self.scrollView.frame.width)
         }.disposed(by: disposeBag)
-        segmentControl.rx.selectedSegmentIndex.subscribe { (event) in
-            print(event)
-        }.disposed(by: disposeBag)
+
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -194,6 +223,8 @@ extension ControlView {
     func creatTextControlView( _ view:UIView) -> Void {
         view.addSubview(speedSlider)
         view.addSubview(fontSlider)
+        speedSlider.slider.value = UserDefaults.standard.value(forKey: "speed") as? Float ?? 2
+        fontSlider.slider.value = UserDefaults.standard.value(forKey: "fontSize") as? Float ?? 50
 
         speedSlider.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
@@ -211,9 +242,10 @@ extension ControlView {
         view.addSubview(blueSlider)
         view.addSubview(greenSlider)
         view.addSubview(redSlider)
-        blueSlider.slider.value = UserDefaults.standard.value(forKey: "color_b") as! Float
-        greenSlider.slider.value = UserDefaults.standard.value(forKey: "color_g") as! Float
-        redSlider.slider.value = UserDefaults.standard.value(forKey: "color_b") as! Float
+        segmentControl.selectedSegmentIndex = 0
+        blueSlider.slider.value = UserDefaults.standard.value(forKey: "color_b") as? Float ?? 1
+        greenSlider.slider.value = UserDefaults.standard.value(forKey: "color_g") as? Float ?? 1
+        redSlider.slider.value = UserDefaults.standard.value(forKey: "color_r") as? Float ?? 1
         
         segmentControl.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
