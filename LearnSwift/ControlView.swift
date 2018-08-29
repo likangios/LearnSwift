@@ -13,36 +13,48 @@ import SnapKit
 
 class ControlView: UIControl ,UIScrollViewDelegate{
     
+    lazy var textBorderSwitch: UISwitch = {
+        let swt = UISwitch()
+        swt.isOn = false
+        return swt
+    }()
+    lazy var textAnimateSwitch: UISwitch = {
+        let swt = UISwitch()
+        swt.isOn = false
+        return swt
+    }()
     lazy var speedSlider: SliderView = {
-        let spview = SliderView.init(frame: CGRect.zero, Title: "速 度", sdMinValue: 0, sdMaxValue: 20, sdTintColor: UIColor.purple)
+        let spview = SliderView.init(frame: CGRect.zero, Title: "速 度",sValue:UserDefaults.standard.value(forKey: "speed") as? Float ?? 5, sdMinValue: 0, sdMaxValue: 20, sdTintColor: UIColor.purple)
         return spview
     }()
     lazy var fontSlider: SliderView = {
-        let spview = SliderView.init(frame: CGRect.zero, Title: "大 小", sdMinValue: 50, sdMaxValue: 300, sdTintColor: UIColor.purple)
+        let spview = SliderView.init(frame: CGRect.zero, Title: "大 小",sValue:UserDefaults.standard.value(forKey: "fontSize") as? Float ?? 150, sdMinValue: 50, sdMaxValue: 300, sdTintColor: UIColor.purple)
         return spview
     }()
     
     lazy var greenSlider: SliderView = {
-        let spview = SliderView.init(frame: CGRect.zero, Title: "绿 色", sdMinValue: 0, sdMaxValue: 1, sdTintColor: UIColor.green)
+        let spview = SliderView.init(frame: CGRect.zero, Title: "绿 色", sValue:UserDefaults.standard.value(forKey: "color_g") as? Float ?? 1,sdMinValue: 0, sdMaxValue: 1, sdTintColor: UIColor.green)
         return spview
     }()
     lazy var redSlider: SliderView = {
-        let spview = SliderView.init(frame: CGRect.zero, Title: "红 色", sdMinValue: 0, sdMaxValue: 1, sdTintColor: UIColor.red)
+        let spview = SliderView.init(frame: CGRect.zero, Title: "红 色",sValue:UserDefaults.standard.value(forKey: "color_r") as? Float ?? 1, sdMinValue: 0, sdMaxValue: 1, sdTintColor: UIColor.red)
         return spview
     }()
     lazy var blueSlider: SliderView = {
-        let spview = SliderView.init(frame: CGRect.zero, Title: "蓝 色", sdMinValue: 0, sdMaxValue: 1, sdTintColor: UIColor.blue)
+        let spview = SliderView.init(frame: CGRect.zero, Title: "蓝 色",sValue: UserDefaults.standard.value(forKey: "color_b") as? Float ?? 1,sdMinValue: 0, sdMaxValue: 1, sdTintColor: UIColor.blue)
         return spview
     }()
     var disposeBag = DisposeBag()
-    var colorObserable = PublishSubject<UIColor>()
+    var colorObserable = ReplaySubject<UIColor>.create(bufferSize: 1)
+
     var isSelectedBg:Bool = false
 
     lazy var mainView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        view.layer.borderWidth = 0.5
-        view.layer.borderColor = UIColor.white.cgColor
+        view.layer.shadowColor = UIColor.white.cgColor
+        view.layer.shadowOffset = CGSize(width: 0, height: 3)
+        view.layer.shadowOpacity = 1
         return view
     }()
     lazy var scrollView: UIScrollView = {
@@ -77,10 +89,12 @@ class ControlView: UIControl ,UIScrollViewDelegate{
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        creatSubView()
+        
         self.rx.controlEvent(.touchUpInside).subscribe { (event) in
             self.hiddenMainView(animate: true)
         }.disposed(by: disposeBag)
-        creatSubView()
+        
         Observable.combineLatest(greenSlider.obserable, redSlider.obserable, blueSlider.obserable) { (g_value, red_value, blue_value) ->UIColor in
             if self.isSelectedBg {
                 UserDefaults.standard.set(red_value, forKey: "bg_color_r")
@@ -106,16 +120,20 @@ class ControlView: UIControl ,UIScrollViewDelegate{
                 self.redSlider.slider.value = Float(red);
                 self.blueSlider.slider.value = Float(blue);
                 self.greenSlider.slider.value = Float(green);
-                self.colorObserable.onNext(UIColor.init(red: red, green: green, blue: blue, alpha: 1))
+                self.redSlider.obserable.onNext(Float(red))
+                self.blueSlider.obserable.onNext(Float(blue))
+                self.greenSlider.obserable.onNext(Float(green))
             }
             else{
                 let red:CGFloat = CGFloat(UserDefaults.standard.value(forKey: "color_r") as? Float ?? 1)
                 let blue:CGFloat = CGFloat(UserDefaults.standard.value(forKey: "color_b") as? Float ?? 1)
                 let green:CGFloat = CGFloat(UserDefaults.standard.value(forKey: "color_g") as? Float ?? 1)
+                self.redSlider.obserable.onNext(Float(red))
+                self.blueSlider.obserable.onNext(Float(blue))
+                self.greenSlider.obserable.onNext(Float(green))
                 self.redSlider.slider.value = Float(red);
                 self.blueSlider.slider.value = Float(blue);
                 self.greenSlider.slider.value = Float(green);
-                self.colorObserable.onNext(UIColor.init(red: red, green: green, blue: blue, alpha: 1))
             }
         }.disposed(by: disposeBag)
         
@@ -223,9 +241,8 @@ extension ControlView {
     func creatTextControlView( _ view:UIView) -> Void {
         view.addSubview(speedSlider)
         view.addSubview(fontSlider)
-        speedSlider.slider.value = UserDefaults.standard.value(forKey: "speed") as? Float ?? 2
-        fontSlider.slider.value = UserDefaults.standard.value(forKey: "fontSize") as? Float ?? 50
-
+        view.addSubview(textBorderSwitch)
+        view.addSubview(textAnimateSwitch)
         speedSlider.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.top.equalTo(10)
@@ -236,6 +253,33 @@ extension ControlView {
             make.top.equalTo(speedSlider.snp.bottom).offset(5)
             make.height.equalTo(30)
         }
+        let borderL = UILabel()
+        borderL.text = "文字描边"
+        borderL.textColor = UIColor.white
+        view.addSubview(borderL)
+        borderL.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(fontSlider.snp.bottom).offset(5)
+        }
+        textBorderSwitch.snp.makeConstraints { (make) in
+            make.left.equalTo(borderL.snp.right).offset(20)
+            make.centerY.equalTo(borderL)
+            make.size.equalTo(CGSize(width: 80, height: 35))
+        }
+        
+        let borderA = UILabel()
+        borderA.text = "文字描边"
+        borderA.textColor = UIColor.white
+        view.addSubview(borderA)
+        borderA.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(borderL.snp.bottom).offset(5)
+        }
+        textBorderSwitch.snp.makeConstraints { (make) in
+            make.left.equalTo(borderL.snp.right).offset(20)
+            make.centerY.equalTo(borderL)
+            make.size.equalTo(CGSize(width: 80, height: 35))
+        }
     }
     func creatColorControlView(_ view:UIView) -> Void {
         view.addSubview(segmentControl)
@@ -243,9 +287,7 @@ extension ControlView {
         view.addSubview(greenSlider)
         view.addSubview(redSlider)
         segmentControl.selectedSegmentIndex = 0
-        blueSlider.slider.value = UserDefaults.standard.value(forKey: "color_b") as? Float ?? 1
-        greenSlider.slider.value = UserDefaults.standard.value(forKey: "color_g") as? Float ?? 1
-        redSlider.slider.value = UserDefaults.standard.value(forKey: "color_r") as? Float ?? 1
+
         
         segmentControl.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()

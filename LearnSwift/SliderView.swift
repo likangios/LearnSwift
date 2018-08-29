@@ -14,6 +14,9 @@ class SliderView: UIView {
 
     lazy var slider: UISlider = {
         let sd = UISlider()
+        sd.minimumValue = sMinValue
+        sd.maximumValue = sMaxValue
+        sd.value = sValue
         return sd
     }()
     lazy var title: UILabel = {
@@ -22,18 +25,20 @@ class SliderView: UIView {
         label.textAlignment = NSTextAlignment.left
         return label;
     }()
-    var obserable = PublishSubject<Float>()
+    var obserable = ReplaySubject<Float>.create(bufferSize: 1)
     
     let disposeBag = DisposeBag()
 
+    private var sValue:Float = 5
     private var sMinValue:Float = 0
     private var sMaxValue:Float = 1
     private var sTintColor :UIColor = UIColor.blue
     private var titleStr:String = ""
     
-    public init(frame: CGRect ,Title: String ,sdMinValue:Float,sdMaxValue:Float,sdTintColor:UIColor) {
+    public init(frame: CGRect ,Title: String ,sValue:Float, sdMinValue:Float,sdMaxValue:Float,sdTintColor:UIColor) {
         super.init(frame: frame)
         self.titleStr = Title
+        self.sValue = sValue
         self.sMinValue = sdMinValue
         self.sMaxValue = sdMaxValue
         self.sTintColor = sdTintColor
@@ -62,7 +67,6 @@ extension SliderView {
         }
         title.text = titleStr
         slider.tintColor = sTintColor
-        slider.minimumValue = sMinValue
-        slider.maximumValue = sMaxValue
+
     }
 }

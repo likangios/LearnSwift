@@ -27,8 +27,13 @@ class ViewController: UIViewController {
         let field = UITextField()
         field.borderStyle = UITextBorderStyle.roundedRect
         field.layer.borderColor = mainColor.cgColor
+        field.textColor = UIColor.white
         field.layer.borderWidth = 0.5
-        field.placeholder = "输入内容"
+        field.layer.cornerRadius = 17.5
+        field.placeholder = "输入弹幕内容"
+        field.setValue(UIColor.white, forKeyPath: "_placeholderLabel.textColor")
+        field.backgroundColor = UIColor.clear
+        field.textAlignment = NSTextAlignment.center
         return field
     }()
     
@@ -54,8 +59,6 @@ class ViewController: UIViewController {
             make.size.equalTo(CGSize(width: view.frame.height, height: view.frame.width))
         }
         ledView.transform = CGAffineTransform.init(rotationAngle: CGFloat(Double.pi)/2.0)
-        ledView.speed = CGFloat(UserDefaults.standard.value(forKey: "speed") as? Float ?? 2)
-        ledView.fontSize = CGFloat(UserDefaults.standard.value(forKey: "fontSize") as? Float ?? 50)
         ledView.space = 100
         ledView.content = "点击输入框输入字幕"
         controlView.speedSlider.obserable.subscribe({ (event) in
@@ -75,19 +78,16 @@ class ViewController: UIViewController {
             }
         }.disposed(by: disposeBag)
         
+        
         let inputValid = self.inputField.rx.text.orEmpty
             .skipWhile { $0.count <= 0 }
             .share(replay: 1)
         
         inputValid.distinctUntilChanged().bind { (text) in
             self.ledView.content = text
+            self.ledView.creatLabels()
         }.disposed(by: disposeBag)
-        
-        controlView.speedSlider.obserable.onNext(controlView.speedSlider.slider.value)
-        controlView.fontSlider.obserable.onNext(controlView.fontSlider.slider.value)
-        controlView.blueSlider.obserable.onNext(controlView.blueSlider.slider.value)
-        controlView.greenSlider.obserable.onNext(controlView.greenSlider.slider.value)
-        controlView.redSlider.obserable.onNext(controlView.redSlider.slider.value)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -103,8 +103,9 @@ extension ViewController {
         if value > 0.0 {
             print("font size = \(value)")
             ledView.fontSize = CGFloat(value)
+            ledView.content = "点击输入框输入字幕"
+            ledView.creatLabels()
             UserDefaults.standard.set(value, forKey: "fontSize")
-
         }
     }
     @objc func speedSliderValueChanged(speed:Float) -> Void {

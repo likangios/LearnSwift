@@ -10,17 +10,7 @@ import UIKit
 
 class LEDView: UIView {
     let timeInterval:Double = 0.02
-    var _fontSize:CGFloat = 50
-    var fontSize: CGFloat{
-        get {
-            return _fontSize;
-        }
-        set {
-            _fontSize = newValue
-            self.content = _content
-            
-        }
-    }
+    var fontSize:CGFloat = 150
     var fontName:String = "system"
     var labels:[UILabel] = []
     var animaingLabel:[UILabel] = []
@@ -40,9 +30,7 @@ class LEDView: UIView {
         }
         set {
             if ((newValue.count) != nil) {
-                _content = newValue
-                self.creatLabels()
-                
+                _content = newValue                
             }
         }
     }
@@ -89,11 +77,15 @@ extension LEDView {
         }
         
         let count:Int = Int(ceil(UIScreen.main.bounds.height/width)) + 1
-        for item in 1...count {
+        for _ in 1...count {
             let label = UILabel()
-            label.text = content
+            let attribut = NSMutableAttributedString.init(string: content)
+            attribut.addAttributes([NSAttributedStringKey.foregroundColor : fontColor], range: NSMakeRange(0, content.count))
+            attribut.addAttributes([NSAttributedStringKey.strokeColor:fontColor], range: NSMakeRange(0, content.count))
+            attribut.addAttributes([NSAttributedStringKey.strokeWidth:3], range: NSMakeRange(0, content.count))
+            label.attributedText = attribut
             label.font = UIFont.systemFont(ofSize: fontSize)
-            label.textColor = fontColor
+//            label.textColor = fontColor
             addSubview(label)
             label.snp.makeConstraints { (make) in
                 make.centerY.equalToSuperview()
@@ -102,7 +94,6 @@ extension LEDView {
             layoutIfNeeded()
             labels.append(label)
             freeLabel.append(label)
-            print(item)
         }
         
         if speed == 0 {
@@ -164,7 +155,11 @@ extension LEDView {
     }
     func changeFontColor() -> Void {
         for label in labels {
-            label.textColor = fontColor
+            let attribut = NSMutableAttributedString.init(string: content)
+            attribut.addAttributes([NSAttributedStringKey.foregroundColor : fontColor], range: NSMakeRange(0, content.count))
+            attribut.addAttributes([NSAttributedStringKey.strokeColor:fontColor], range: NSMakeRange(0, content.count))
+            attribut.addAttributes([NSAttributedStringKey.strokeWidth:3], range: NSMakeRange(0, content.count))
+            label.attributedText = attribut
         }
     }
     @objc func continueTimer() -> Void {
