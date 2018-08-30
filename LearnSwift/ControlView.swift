@@ -15,11 +15,15 @@ class ControlView: UIControl ,UIScrollViewDelegate{
     
     lazy var textBorderSwitch: UISwitch = {
         let swt = UISwitch()
+        swt.tintColor = mainColor
+        swt.onTintColor = mainColor
         swt.isOn = false
         return swt
     }()
     lazy var textAnimateSwitch: UISwitch = {
         let swt = UISwitch()
+        swt.tintColor = mainColor
+        swt.onTintColor = mainColor
         swt.isOn = false
         return swt
     }()
@@ -54,7 +58,7 @@ class ControlView: UIControl ,UIScrollViewDelegate{
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         view.layer.shadowColor = UIColor.white.cgColor
         view.layer.shadowOffset = CGSize(width: 0, height: 3)
-        view.layer.shadowOpacity = 1
+        view.layer.shadowOpacity = 0.3
         return view
     }()
     lazy var scrollView: UIScrollView = {
@@ -67,7 +71,8 @@ class ControlView: UIControl ,UIScrollViewDelegate{
     lazy var segmentControl: UISegmentedControl = {
         let segment = UISegmentedControl.init(items: ["字体","背景"])
         segment.backgroundColor = UIColor.clear
-        segment.layer.borderColor = mainColor.cgColor
+        segment.tintColor = mainColor
+        segment.layer.borderColor = UIColor.white.cgColor
         segment.layer.borderWidth = 1.0
         segment.layer.cornerRadius = 17.5
         segment.layer.masksToBounds = true
@@ -82,6 +87,19 @@ class ControlView: UIControl ,UIScrollViewDelegate{
     lazy var bottomView: UIView = {
         let view = UIView()
         return view
+    }()
+    lazy var inputField: UITextField = {
+        let field = UITextField()
+        field.borderStyle = UITextBorderStyle.roundedRect
+        field.layer.borderColor = mainColor.cgColor
+        field.textColor = UIColor.white
+        field.layer.borderWidth = 0.5
+        field.layer.cornerRadius = 17.5
+        field.placeholder = "输入弹幕内容"
+        field.setValue(UIColor.white, forKeyPath: "_placeholderLabel.textColor")
+        field.backgroundColor = UIColor.clear
+        field.textAlignment = NSTextAlignment.center
+        return field
     }()
     private var scrollSubViewL:UIView?
     private var scrollSubViewC:UIView?
@@ -162,6 +180,7 @@ extension ControlView {
         if animate == true {
             UIView.animate(withDuration: 0.25, animations: {
                 self.mainView.transform = CGAffineTransform.init(translationX: 0, y: UIScreen.main.bounds.height * 0.3)
+                self.inputField.transform = CGAffineTransform.init(translationX: 0, y: -100)
             }) { (finish) in
                 self.isHidden = true
             }
@@ -169,6 +188,8 @@ extension ControlView {
         else{
             self.isHidden = true
             self.mainView.transform = CGAffineTransform.init(translationX: 0, y: UIScreen.main.bounds.height * 0.3)
+            self.inputField.transform = CGAffineTransform.init(translationX: 0, y: -100)
+
         }
     }
     func showMainView(animate:Bool) -> Void {
@@ -176,16 +197,27 @@ extension ControlView {
             UIView.animate(withDuration: 0.25) {
                 self.isHidden = false
                 self.mainView.transform = CGAffineTransform.identity
+                self.inputField.transform = CGAffineTransform.identity
+
             }
         }
         else{
                 self.isHidden = false
                self.mainView.transform = CGAffineTransform.identity
+            self.inputField.transform = CGAffineTransform.identity
+
         }
         
         
     }
     func creatSubView() -> Void {
+        addSubview(inputField)
+        inputField.snp.makeConstraints { (make) in
+            make.left.equalTo(15)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(20)
+            make.height.equalTo(35)
+        }
         addSubview(mainView)
         mainView.addSubview(scrollView)
         mainView.addSubview(pageControl)
@@ -243,6 +275,7 @@ extension ControlView {
         view.addSubview(fontSlider)
         view.addSubview(textBorderSwitch)
         view.addSubview(textAnimateSwitch)
+        
         speedSlider.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
             make.top.equalTo(10)
@@ -253,13 +286,13 @@ extension ControlView {
             make.top.equalTo(speedSlider.snp.bottom).offset(5)
             make.height.equalTo(30)
         }
-        let borderL = UILabel()
+        let borderL = UILabel.init()
         borderL.text = "文字描边"
         borderL.textColor = UIColor.white
         view.addSubview(borderL)
         borderL.snp.makeConstraints { (make) in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(fontSlider.snp.bottom).offset(5)
+            make.left.equalTo(5)
+            make.top.equalTo(fontSlider.snp.bottom).offset(15)
         }
         textBorderSwitch.snp.makeConstraints { (make) in
             make.left.equalTo(borderL.snp.right).offset(20)
@@ -268,16 +301,16 @@ extension ControlView {
         }
         
         let borderA = UILabel()
-        borderA.text = "文字描边"
+        borderA.text = "文字闪烁"
         borderA.textColor = UIColor.white
         view.addSubview(borderA)
         borderA.snp.makeConstraints { (make) in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(borderL.snp.bottom).offset(5)
+            make.left.equalTo(5)
+            make.top.equalTo(borderL.snp.bottom).offset(20)
         }
-        textBorderSwitch.snp.makeConstraints { (make) in
-            make.left.equalTo(borderL.snp.right).offset(20)
-            make.centerY.equalTo(borderL)
+        textAnimateSwitch.snp.makeConstraints { (make) in
+            make.left.equalTo(borderA.snp.right).offset(20)
+            make.centerY.equalTo(borderA)
             make.size.equalTo(CGSize(width: 80, height: 35))
         }
     }

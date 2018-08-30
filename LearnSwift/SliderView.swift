@@ -44,6 +44,7 @@ class SliderView: UIView {
         self.sTintColor = sdTintColor
         creatSubView()
         slider.rx.value.asObservable().bind(to: obserable).disposed(by: disposeBag)
+        
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -23,19 +23,6 @@ class ViewController: UIViewController {
         let view = ControlView()
         return view
     }()
-    lazy var inputField: UITextField = {
-        let field = UITextField()
-        field.borderStyle = UITextBorderStyle.roundedRect
-        field.layer.borderColor = mainColor.cgColor
-        field.textColor = UIColor.white
-        field.layer.borderWidth = 0.5
-        field.layer.cornerRadius = 17.5
-        field.placeholder = "输入弹幕内容"
-        field.setValue(UIColor.white, forKeyPath: "_placeholderLabel.textColor")
-        field.backgroundColor = UIColor.clear
-        field.textAlignment = NSTextAlignment.center
-        return field
-    }()
     
     var disposeBag = DisposeBag()
     override func viewDidLoad() {
@@ -43,13 +30,7 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor.black
         view.addSubview(ledView)
         view.addSubview(controlView)
-        view.addSubview(inputField)
-        inputField.snp.makeConstraints { (make) in
-            make.left.equalTo(15)
-            make.centerX.equalToSuperview()
-            make.top.equalTo(20)
-            make.height.equalTo(35)
-        }
+
         controlView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
@@ -79,7 +60,7 @@ class ViewController: UIViewController {
         }.disposed(by: disposeBag)
         
         
-        let inputValid = self.inputField.rx.text.orEmpty
+        let inputValid = controlView.inputField.rx.text.orEmpty
             .skipWhile { $0.count <= 0 }
             .share(replay: 1)
         
@@ -87,7 +68,17 @@ class ViewController: UIViewController {
             self.ledView.content = text
             self.ledView.creatLabels()
         }.disposed(by: disposeBag)
-
+        
+        controlView.textBorderSwitch.rx.value.asObservable().subscribe { [weak self](event) in
+            print("border \(event)")
+            self!.ledView.textBorder = event.element!
+        }.disposed(by: disposeBag)
+        
+        controlView.textAnimateSwitch.rx.value.asObservable().subscribe { [weak self](event) in
+            print("animate \(event)")
+            self!.ledView.textAnimate = event.element!
+        }.disposed(by: disposeBag)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -103,7 +94,6 @@ extension ViewController {
         if value > 0.0 {
             print("font size = \(value)")
             ledView.fontSize = CGFloat(value)
-            ledView.content = "点击输入框输入字幕"
             ledView.creatLabels()
             UserDefaults.standard.set(value, forKey: "fontSize")
         }
