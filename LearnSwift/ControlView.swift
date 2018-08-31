@@ -11,8 +11,9 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class ControlView: UIControl ,UIScrollViewDelegate{
+class ControlView: UIControl ,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource{
     
+    var dataArray = ["静音","摇滚1","摇滚2","摇滚3","摇滚4","摇滚5","轻快1","轻快2","轻快3","轻快4","流行1","流行1","流行1","流行1"]
     lazy var textBorderSwitch: UISwitch = {
         let swt = UISwitch()
         swt.tintColor = mainColor
@@ -20,13 +21,21 @@ class ControlView: UIControl ,UIScrollViewDelegate{
         swt.isOn = false
         return swt
     }()
-    lazy var textAnimateSwitch: UISwitch = {
-        let swt = UISwitch()
-        swt.tintColor = mainColor
-        swt.onTintColor = mainColor
-        swt.isOn = false
-        return swt
+    lazy var collectionView:UICollectionView = {
+        let layout = UICollectionViewFlowLayout.init()
+        layout.itemSize = CGSize(width:screent_width/5.0  , height:screent_width/5.0)
+        layout.scrollDirection =  .horizontal
+        layout.minimumLineSpacing = 1
+        layout.minimumInteritemSpacing = 1
+        let cview = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: layout)
+        cview.register(AudioCollectionViewCell.self, forCellWithReuseIdentifier: "AudioCollectionViewCell")
+        cview.delegate = self
+        cview.dataSource = self
+        cview.showsVerticalScrollIndicator = false
+        cview.showsHorizontalScrollIndicator = false
+        return cview
     }()
+    
     lazy var speedSlider: SliderView = {
         let spview = SliderView.init(frame: CGRect.zero, Title: "速 度",sValue:UserDefaults.standard.value(forKey: "speed") as? Float ?? 5, sdMinValue: 0, sdMaxValue: 20, sdTintColor: UIColor.purple)
         return spview
@@ -67,6 +76,17 @@ class ControlView: UIControl ,UIScrollViewDelegate{
         sc.delegate = self as UIScrollViewDelegate
         sc.bouncesZoom = false
         return sc
+    }()
+    lazy var animateSegmentControl: UISegmentedControl = {
+    let segment = UISegmentedControl.init(items: ["正常","缩放","闪烁","浮动"])
+        segment.backgroundColor = UIColor.clear
+        segment.selectedSegmentIndex = 0
+        segment.tintColor = mainColor
+        segment.layer.borderColor = UIColor.white.cgColor
+        segment.layer.borderWidth = 1.0
+        segment.layer.cornerRadius = 17.5
+        segment.layer.masksToBounds = true
+        return segment
     }()
     lazy var segmentControl: UISegmentedControl = {
         let segment = UISegmentedControl.init(items: ["字体","背景"])
@@ -274,7 +294,7 @@ extension ControlView {
         view.addSubview(speedSlider)
         view.addSubview(fontSlider)
         view.addSubview(textBorderSwitch)
-        view.addSubview(textAnimateSwitch)
+        view.addSubview(animateSegmentControl)
         
         speedSlider.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
@@ -301,17 +321,17 @@ extension ControlView {
         }
         
         let borderA = UILabel()
-        borderA.text = "文字闪烁"
+        borderA.text = "文字动画"
         borderA.textColor = UIColor.white
         view.addSubview(borderA)
         borderA.snp.makeConstraints { (make) in
             make.left.equalTo(5)
             make.top.equalTo(borderL.snp.bottom).offset(20)
         }
-        textAnimateSwitch.snp.makeConstraints { (make) in
+        animateSegmentControl.snp.makeConstraints { (make) in
             make.left.equalTo(borderA.snp.right).offset(20)
             make.centerY.equalTo(borderA)
-            make.size.equalTo(CGSize(width: 80, height: 35))
+            make.size.equalTo(CGSize(width: 250, height: 35))
         }
     }
     func creatColorControlView(_ view:UIView) -> Void {
@@ -351,5 +371,14 @@ extension ControlView {
             make.edges.equalToSuperview()
         }
     }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UICollectionViewCell", for: indexPath)
+        
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataArray.count
+    }
+    
     
 }

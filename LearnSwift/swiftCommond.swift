@@ -11,3 +11,6 @@ import UIKit
 
 
 let mainColor = UIColor.init(hex: "0068fc")
+
+let screent_width = UIScreen.main.bounds.width
+let screent_height = UIScreen.main.bounds.height

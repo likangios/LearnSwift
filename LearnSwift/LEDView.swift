@@ -33,8 +33,8 @@ class LEDView: UIView {
         }
     }
     
-    var rx_textAnimate: Variable<Bool> = Variable(false)
-    var textAnimate: Bool {
+    var rx_textAnimate: Variable<Int> = Variable(0)
+    var textAnimateType: Int {
         get {
             return rx_textAnimate.value
         }
@@ -75,16 +75,65 @@ class LEDView: UIView {
         }.disposed(by: disposeBag)
         
         rx_textAnimate.asObservable().subscribe { (even) in
-            let animation = CABasicAnimation.init(keyPath: "opacity")
-            animation.fromValue = 0
-            animation.toValue = 1
-            animation.duration = 0.1
-            animation.repeatCount = .greatestFiniteMagnitude
-            self.layer.add(animation, forKey: "hidden")
+            if self.textAnimateType != 0 {
+                self.layer.removeAllAnimations()
+                self.layer.add(self.getAnimateWith(type: self.textAnimateType), forKey: "transform.scale")
+            }
+            else{
+                self.layer.removeAllAnimations()
+            }
+
             
         }.disposed(by: disposeBag)
-        
+    }
+    func getAnimateWith(type:Int) -> CAAnimation {
+        switch type {
+        case 1:
+            do {
+                
+            let animation1 = self.getAnimate(keyPath: "transform.scale", fromValue: 1, toValue: 2, beginTime: 0, duration: 1.5, repeatCount: 1)
+            let animation2 = self.getAnimate(keyPath: "transform.scale", fromValue: 2, toValue: 1, beginTime: 1.5, duration: 1.5, repeatCount: 1)
+            let group = CAAnimationGroup.init()
+            group.animations = [animation1,animation2]
+            group.duration = 3
+            group.repeatCount = .greatestFiniteMagnitude
+            return group
+            }
+        case 2:
+            let animation1 = self.getAnimate(keyPath: "opacity", fromValue: 0, toValue: 1, beginTime: 0, duration: 0.2, repeatCount: .greatestFiniteMagnitude)
+            return animation1
+        case 3:
+            do {
+                let animation1 = self.getAnimate(keyPath: "position.x", fromValue: nil, toValue:nil, beginTime: 0, duration: 1, repeatCount: 0)
+                animation1.byValue = 100
+                animation1.autoreverses = true
+                animation1.isRemovedOnCompletion = false
+                let animation2 = self.getAnimate(keyPath: "position.x", fromValue: nil, toValue:nil, beginTime: 2.0, duration: 1, repeatCount: 0)
+                animation2.byValue = -100
+                animation2.isRemovedOnCompletion = false
+                animation2.autoreverses = true
 
+                let group = CAAnimationGroup.init()
+                group.animations = [animation1,animation2]
+                group.duration = 4.0
+                
+                group.repeatCount = .greatestFiniteMagnitude
+                return group
+            }
+        default: break
+        }
+        return CAAnimationGroup()
+
+    }
+    func getAnimate(keyPath:String ,fromValue:Any? ,toValue:Any?,beginTime:CFTimeInterval,duration:CFTimeInterval,repeatCount:Float) -> CABasicAnimation {
+        
+        let animation = CABasicAnimation.init(keyPath: keyPath)
+        animation.fromValue = fromValue
+        animation.toValue = toValue
+        animation.duration = duration
+        animation.beginTime = beginTime
+        animation.repeatCount = repeatCount
+        return animation
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

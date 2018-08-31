@@ -27,6 +27,7 @@ class ViewController: UIViewController {
     var disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
+
         view.backgroundColor = UIColor.black
         view.addSubview(ledView)
         view.addSubview(controlView)
@@ -74,9 +75,9 @@ class ViewController: UIViewController {
             self!.ledView.textBorder = event.element!
         }.disposed(by: disposeBag)
         
-        controlView.textAnimateSwitch.rx.value.asObservable().subscribe { [weak self](event) in
+        controlView.animateSegmentControl.rx.value.asObservable().subscribe { [weak self](event) in
             print("animate \(event)")
-            self!.ledView.textAnimate = event.element!
+            self!.ledView.textAnimateType = event.element!
         }.disposed(by: disposeBag)
         
     }
