@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7913C23421300DC900126C77 /* swiftCommond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7913C23321300DC900126C77 /* swiftCommond.swift */; };
+		79852587214A183D00701D38 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79852586214A183D00701D38 /* AudioManager.swift */; };
 		798973F4213946EB00EAFAAC /* AudioCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798973F3213946EB00EAFAAC /* AudioCollectionViewCell.swift */; };
 		79BEAEB52138D113000DA0B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79BEAEB42138D113000DA0B6 /* Assets.xcassets */; };
 		79DD6954212BB88B0087747A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DD6953212BB88B0087747A /* AppDelegate.swift */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		22DBC0F53941F63987AA82EF /* Pods_LearnSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LearnSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7913C23321300DC900126C77 /* swiftCommond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftCommond.swift; sourceTree = "<group>"; };
+		79852586214A183D00701D38 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		798973F3213946EB00EAFAAC /* AudioCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCollectionViewCell.swift; sourceTree = "<group>"; };
 		79BEAEB42138D113000DA0B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		79DD6950212BB88B0087747A /* LearnSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearnSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +89,7 @@
 				79DD6A02212FEE6A0087747A /* ControlView.swift */,
 				798973F3213946EB00EAFAAC /* AudioCollectionViewCell.swift */,
 				79DD6A00212FED940087747A /* SliderView.swift */,
+				79852586214A183D00701D38 /* AudioManager.swift */,
 				79BEAEB42138D113000DA0B6 /* Assets.xcassets */,
 				79DD6957212BB88B0087747A /* Main.storyboard */,
 				79DD695C212BB88E0087747A /* LaunchScreen.storyboard */,
@@ -243,6 +246,7 @@
 			files = (
 				79DD6956212BB88B0087747A /* ViewController.swift in Sources */,
 				79DD6954212BB88B0087747A /* AppDelegate.swift in Sources */,
+				79852587214A183D00701D38 /* AudioManager.swift in Sources */,
 				79DD69EA212CED1F0087747A /* LEDView.swift in Sources */,
 				7913C23421300DC900126C77 /* swiftCommond.swift in Sources */,
 				79DD6A01212FED950087747A /* SliderView.swift in Sources */,
@@ -393,7 +397,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = E5EJ3R9VNE;
+				DEVELOPMENT_TEAM = AC3QX9VJ78;
 				INFOPLIST_FILE = LearnSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -413,7 +417,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = E5EJ3R9VNE;
+				DEVELOPMENT_TEAM = AC3QX9VJ78;
 				INFOPLIST_FILE = LearnSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (

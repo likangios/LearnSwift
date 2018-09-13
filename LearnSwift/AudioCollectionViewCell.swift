@@ -17,7 +17,7 @@ class AudioCollectionViewCell: UICollectionViewCell {
     }()
     lazy var title: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.black
+        label.textColor = UIColor.white
         return label
     }()
     override init(frame: CGRect) {

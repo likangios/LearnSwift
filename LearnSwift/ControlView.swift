@@ -13,7 +13,7 @@ import SnapKit
 
 class ControlView: UIControl ,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource{
     
-    var dataArray = ["静音","摇滚1","摇滚2","摇滚3","摇滚4","摇滚5","轻快1","轻快2","轻快3","轻快4","流行1","流行1","流行1","流行1"]
+    var dataArray = ["静音","摇滚1","摇滚2","摇滚3","摇滚4","摇滚5","轻快1","轻快2","轻快3","轻快4","流行1","流行2","流行3","流行4"]
     lazy var textBorderSwitch: UISwitch = {
         let swt = UISwitch()
         swt.tintColor = mainColor
@@ -23,9 +23,9 @@ class ControlView: UIControl ,UIScrollViewDelegate,UICollectionViewDelegate,UICo
     }()
     lazy var collectionView:UICollectionView = {
         let layout = UICollectionViewFlowLayout.init()
-        layout.itemSize = CGSize(width:screent_width/5.0  , height:screent_width/5.0)
-        layout.scrollDirection =  .horizontal
-        layout.minimumLineSpacing = 1
+        layout.itemSize = CGSize(width:(screent_width-20)/5.0  , height:(screent_width-20)/5.0)
+        layout.scrollDirection =  .vertical
+        layout.minimumLineSpacing = 5
         layout.minimumInteritemSpacing = 1
         let cview = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: layout)
         cview.register(AudioCollectionViewCell.self, forCellWithReuseIdentifier: "AudioCollectionViewCell")
@@ -364,21 +364,34 @@ extension ControlView {
         }
     }
     func creatAnimateControlView(_ view:UIView) -> Void {
-        let v = UIView()
-        v.backgroundColor = UIColor.orange
-        view.addSubview(v)
-        v.snp.makeConstraints { (make) in
+        view.addSubview(collectionView)
+        collectionView.backgroundColor = UIColor.clear
+        collectionView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UICollectionViewCell", for: indexPath)
-        
+        let cell:AudioCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AudioCollectionViewCell", for: indexPath) as! AudioCollectionViewCell
+        cell.title.text = dataArray[indexPath.row]
+        let string = dataArray[indexPath.row]
+        if string.contains("摇滚") {
+            cell.imageView.image = UIImage.init(named: "dj")
+        }
+        else if (string.contains("轻快")){
+            cell.imageView.image = UIImage.init(named: "qk")
+        }
+        else if (string.contains("流行")){
+            cell.imageView.image = UIImage.init(named: "aj")
+        }
+        else{
+            cell.imageView.image = UIImage.init(named: "na")
+        }
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataArray.count
     }
-    
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
 }
