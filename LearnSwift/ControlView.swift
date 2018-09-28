@@ -13,7 +13,7 @@ import SnapKit
 
 class ControlView: UIControl ,UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource{
     
-    var dataArray = ["静音","摇滚1","摇滚2","摇滚3","摇滚4","摇滚5","轻快1","轻快2","轻快3","轻快4","流行1","流行2","流行3","流行4"]
+    var dataArray = ["静音","摇滚1","摇滚2","摇滚3","摇滚4","摇滚5","轻快1","轻快3","流行1","流行2","流行3","流行4"]
     lazy var textBorderSwitch: UISwitch = {
         let swt = UISwitch()
         swt.tintColor = mainColor
@@ -392,6 +392,28 @@ extension ControlView {
         return dataArray.count
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let string = dataArray[indexPath.row]
+
+        let audioName:String = self.getVideoName(str: string)
+        let path:String? = Bundle.main.path(forResource: audioName, ofType: "mp3")
+        AudioManager.defaultManager.play(path:path)
+    }
+    func getVideoName(str:String) -> String{
+        let dic = ["摇滚1":"yg1",
+                   "摇滚2":"yg2",
+                   "摇滚3":"yg3",
+                   "摇滚4":"yg4",
+                   "摇滚5":"yg5",
+                   "轻快1":"qk1",
+                   "轻快2":"qk2",
+                   "轻快3":"qk3",
+                   "轻快4":"qk4",
+                   "流行1":"lx1",
+                   "流行2":"lx2",
+                   "流行3":"lx3",
+                   "流行4":"lx4",
+                    "静音":"nan"]
         
+        return dic[str]!
     }
 }

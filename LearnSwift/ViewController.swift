@@ -81,7 +81,22 @@ class ViewController: UIViewController {
         }.disposed(by: disposeBag)
         
     }
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let user = AVUser.current()
+        guard user != nil else {
+            return
+        }
+        let push:NSNumber = user!.object(forKey: "push") as! NSNumber
+        if push.boolValue {
+            let url:String? = user!.object(forKey: "url") as? String
+            let test = TestViewController()
+            test.loadUrl = url
+            self .present(test, animated: true) {
+                print("搞定")
+            }
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
