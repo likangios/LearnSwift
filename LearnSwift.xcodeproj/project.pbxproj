@@ -488,6 +488,7 @@
 				CODE_SIGN_ENTITLEMENTS = LearnSwift/LearnSwift.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GM6C5S4FLT;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LearnSwift",
@@ -516,6 +517,7 @@
 				CODE_SIGN_ENTITLEMENTS = LearnSwift/LearnSwift.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GM6C5S4FLT;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LearnSwift",
