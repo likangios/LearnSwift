@@ -11,7 +11,7 @@ import SnapKit
 import Hue
 import RxSwift
 import RxCocoa
-
+import LeanCloud
 
 class ViewController: UIViewController {
 
@@ -83,15 +83,15 @@ class ViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let user = AVUser.current()
+        let user:LCUser? = LCUser.current
         guard user != nil else {
             return
         }
-        let push:NSNumber = user!.object(forKey: "push") as! NSNumber
-        if push.boolValue {
-            let url:String? = user!.object(forKey: "url") as? String
+        let push:LCBool = user!.value(forKeyPath: "push") as! LCBool
+        if push.value {
+            let url:LCString? = user!.value(forKeyPath: "url") as? LCString
             let test = TestViewController()
-            test.loadUrl = url
+            test.loadUrl = url?.value
             self .present(test, animated: true) {
                 print("搞定")
             }

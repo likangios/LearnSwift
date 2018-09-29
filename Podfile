@@ -10,6 +10,6 @@ pod 'Advance'
 pod 'Hue'
 pod 'RxSwift',    '~> 4.0'
 pod 'RxCocoa',    '~> 4.0'
-  # Pods for LearnSwift
+pod 'LeanCloud', '~> 11.0.1'
 
 end
