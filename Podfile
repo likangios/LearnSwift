@@ -2,7 +2,10 @@
 platform :ios, '9.0'
 
 target 'LearnSwift' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+    # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+pod 'UMCCommon'
+pod 'UMCPush'
+pod 'UMCSecurityPlugins'
   use_frameworks!
 pod 'SnapKit', '~> 4.0.0'
 #pod 'Spring', :git => 'https://github.com/MengTo/Spring.git'

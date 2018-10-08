@@ -13,22 +13,49 @@ import LeanCloud
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-
+    var launchOptions:[UIApplicationLaunchOptionsKey: Any]?
+    /*
+     // Push组件基本功能配置
+     UMessageRegisterEntity * entity = [[UMessageRegisterEntity alloc] init];
+     //type是对推送的几个参数的选择，可以选择一个或者多个。默认是三个全部打开，即：声音，弹窗，角标
+     entity.types = UMessageAuthorizationOptionBadge|UMessageAuthorizationOptionSound|UMessageAuthorizationOptionAlert;
+     [UNUserNotificationCenter currentNotificationCenter].delegate=self;
+     [UMessage registerForRemoteNotificationsWithLaunchOptions:launchOptions Entity:entity     completionHandler:^(BOOL granted, NSError * _Nullable error) {
+     if (granted) {
+     }else{
+     }
+     }];
+     \*/
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         application.isIdleTimerDisabled = true
-        let setting = UIUserNotificationSettings.init(types: [UIUserNotificationType.alert,UIUserNotificationType.badge,UIUserNotificationType.sound], categories: nil)
-        application.registerUserNotificationSettings(setting)
-        application.registerForRemoteNotifications()
+//        let setting = UIUserNotificationSettings.init(types: [UIUserNotificationType.alert,UIUserNotificationType.badge,UIUserNotificationType.sound], categories: nil)
+//        application.registerUserNotificationSettings(setting)
+//        application.registerForRemoteNotifications()
         LeanCloud.initialize(applicationID: "D7zAA4ICi9e9nFMh9nISuhXE-gzGzoHsz", applicationKey: "OR9jMJ5II0PkrkXOe9lpbsiX")
+        self.launchOptions = launchOptions
         login()
+
         return true
+    }
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let data = NSData.init(data: deviceToken)
+        let token = String.init(data: deviceToken, encoding: .utf8)
+        print(data.description)
+    }
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print(error)
     }
     func login() -> Void {
         
         LCUser.logIn(username: "123456", password: "123456") { result in
             switch result {
-            case .success(let user):
+            case .success(_):
+                let user:LCUser? = LCUser.current
+                guard user != nil else {
+                    return
+                }
+                let appkey:LCString? = user!.value(forKeyPath: "appkey") as? LCString
+                self.registerUM(appkey: appkey?.value)
                 print("登录 成功")
                 break
             case .failure(let error):
@@ -39,6 +66,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 print(error)
             }
+        }
+    }
+    func  registerUM(appkey:String?) {
+        UMConfigure .initWithAppkey(appkey, channel: "APP Store")
+        let entity = UMessageRegisterEntity.init()
+        entity.types = Int(Double(UMessageAuthorizationOptions.badge.rawValue) + TimeInterval(UMessageAuthorizationOptions.alert.rawValue) + Double(UMessageAuthorizationOptions.sound.rawValue))
+        UMessage .registerForRemoteNotifications(launchOptions: launchOptions, entity: entity) { (bool, error) in
         }
     }
     func applicationWillResignActive(_ application: UIApplication) {

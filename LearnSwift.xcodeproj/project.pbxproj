@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7913C23421300DC900126C77 /* swiftCommond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7913C23321300DC900126C77 /* swiftCommond.swift */; };
+		79631D33216B3CEC0014BDF3 /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 79631D32216B3CEC0014BDF3 /* Test.m */; };
 		79852587214A183D00701D38 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79852586214A183D00701D38 /* AudioManager.swift */; };
 		798973F4213946EB00EAFAAC /* AudioCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798973F3213946EB00EAFAAC /* AudioCollectionViewCell.swift */; };
 		79A46F57215E20E200A8A140 /* yg5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 79A46F4A215E20E200A8A140 /* yg5.mp3 */; };
@@ -39,6 +40,9 @@
 /* Begin PBXFileReference section */
 		22DBC0F53941F63987AA82EF /* Pods_LearnSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LearnSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7913C23321300DC900126C77 /* swiftCommond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftCommond.swift; sourceTree = "<group>"; };
+		79631D30216B3CEC0014BDF3 /* LearnSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LearnSwift-Bridging-Header.h"; sourceTree = "<group>"; };
+		79631D31216B3CEC0014BDF3 /* Test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Test.h; sourceTree = "<group>"; };
+		79631D32216B3CEC0014BDF3 /* Test.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Test.m; sourceTree = "<group>"; };
 		79852586214A183D00701D38 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		798973F3213946EB00EAFAAC /* AudioCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCollectionViewCell.swift; sourceTree = "<group>"; };
 		79A46F4A215E20E200A8A140 /* yg5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = yg5.mp3; sourceTree = "<group>"; };
@@ -136,6 +140,8 @@
 				79A46F6E215E2FD900A8A140 /* LearnSwift.entitlements */,
 				79A46F49215E20E200A8A140 /* mp3 */,
 				79DD6953212BB88B0087747A /* AppDelegate.swift */,
+				79631D31216B3CEC0014BDF3 /* Test.h */,
+				79631D32216B3CEC0014BDF3 /* Test.m */,
 				84728171215E8D5C00255C31 /* 167.png */,
 				7913C23321300DC900126C77 /* swiftCommond.swift */,
 				79DD69E9212CED1F0087747A /* LEDView.swift */,
@@ -149,6 +155,7 @@
 				79DD6957212BB88B0087747A /* Main.storyboard */,
 				79DD695C212BB88E0087747A /* LaunchScreen.storyboard */,
 				79DD695F212BB88E0087747A /* Info.plist */,
+				79631D30216B3CEC0014BDF3 /* LearnSwift-Bridging-Header.h */,
 			);
 			path = LearnSwift;
 			sourceTree = "<group>";
@@ -197,6 +204,9 @@
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 0940;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -308,6 +318,7 @@
 				79852587214A183D00701D38 /* AudioManager.swift in Sources */,
 				79DD69EA212CED1F0087747A /* LEDView.swift in Sources */,
 				7913C23421300DC900126C77 /* swiftCommond.swift in Sources */,
+				79631D33216B3CEC0014BDF3 /* Test.m in Sources */,
 				79DD6A01212FED950087747A /* SliderView.swift in Sources */,
 				798973F4213946EB00EAFAAC /* AudioCollectionViewCell.swift in Sources */,
 				79A46F65215E23E800A8A140 /* TestViewController.swift in Sources */,
@@ -476,7 +487,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "7fe595f4-e9b2-4d4c-a318-cc72b16481ef";
 				PROVISIONING_PROFILE_SPECIFIER = dm_dev;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "LearnSwift/LearnSwift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -508,7 +519,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "7fe595f4-e9b2-4d4c-a318-cc72b16481ef";
 				PROVISIONING_PROFILE_SPECIFIER = dm_dev;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "LearnSwift/LearnSwift-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
