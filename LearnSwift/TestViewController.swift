@@ -47,7 +47,8 @@ class TestViewController: UIViewController ,WKNavigationDelegate {
         super.viewDidLoad()
         view.addSubview(self.webView)
         self.webView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
+            make.left.right.top.equalToSuperview()
+            make.bottom.equalTo(-45)
         }
         if loadUrl != nil {
             self.webView.load(URLRequest.init(url: URL.init(string: self.loadUrl!)!))

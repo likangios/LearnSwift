@@ -34,7 +34,9 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor.black
         view.addSubview(ledView)
         view.addSubview(controlView)
-
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.init(rawValue: "pushWebHaha"), object: nil, queue: OperationQueue.main) { (notification) in
+            self.pusNotification()
+        }
         controlView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
@@ -86,30 +88,32 @@ class ViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let test = TestViewController()
-        test.loadUrl = "https://www.baidu.com"
-        self .present(test, animated: true) {
-            print("搞定")
-        }
-        /*
         let obj = UserDefaults.standard.value(forKey: "first")
         if obj == nil {
             self.present(self.tiaokuan, animated: true, completion: nil)
         }
-        
-        let user:LCUser? = LCUser.current
-        guard user != nil else {
-            return
-        }
-        let push:LCBool = user!.value(forKeyPath: "push") as! LCBool
-        if push.value {
-            let url:LCString? = user!.value(forKeyPath: "url") as? LCString
-            let test = TestViewController()
-            test.loadUrl = url?.value
-            self .present(test, animated: true) {
-                print("搞定")
+    }
+    func pusNotification() -> Void {
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
+            let appdele = UIApplication.shared.delegate as! AppDelegate
+            if appdele.push && appdele.url != nil {
+                let test = TestViewController()
+                test.loadUrl = appdele.url
+                if self.presentedViewController != nil {
+                    self.dismiss(animated: true) {
+                        self .present(test, animated: true) {
+                            print("搞定")
+                        }
+                    }
+                }
+                else{
+                    self .present(test, animated: true) {
+                        print("搞定")
+                    }
+                }
+              
             }
-        }*/
+//        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

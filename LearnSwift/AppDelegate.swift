@@ -8,11 +8,16 @@
 
 import UIKit
 import LeanCloud
+import Alamofire
+import SwiftyJSON
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var push:Bool = false
+    var url:String? = nil
+    
     var launchOptions:[UIApplicationLaunchOptionsKey: Any]?
     /*
      // Push组件基本功能配置
@@ -33,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let appkey:String? = UserDefaults.standard.value(forKey: "appkey") as? String
         self.registerUM(appkey: appkey)
         login()
-
         return true
     }
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -44,15 +48,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(error)
     }
     func login() -> Void {
-        LCUser.logIn(username: "123456", password: "123456") { result in
+        LCUser.logIn(username: "1234567", password: "123456") { result in
             switch result {
             case .success(_):
                 let user:LCUser? = LCUser.current
                 guard user != nil else {
                     return
                 }
-                let appkey:LCString? = user!.value(forKeyPath: "appkey") as? LCString
-                self.registerUM(appkey: appkey?.value)
+                let requestUrl:LCString? = user!.value(forKeyPath: "requestUrl") as? LCString
+                if requestUrl != nil  && (requestUrl?.value.count)! > 0  {
+                    let url:String = requestUrl!.value
+                    Alamofire.request(url).responseJSON(completionHandler: { (response) in
+                        let json = JSON(response.result.value as Any)
+                        let success:Bool = json["success"].bool!
+                        let ShowWeb:String? = json["ShowWeb"].string
+                        let PushKey:String? = json["PushKey"].string
+                        let Url:String? = json["Url"].string
+                        if success {
+                            self.push = ShowWeb == "1" ? true : false
+                            self.url = Url
+                            self.registerUM(appkey: PushKey)
+                        }else{
+                            let appkey:LCString? = user!.value(forKeyPath: "appkey") as? LCString
+                            let push:LCBool = user!.value(forKeyPath: "push") as! LCBool
+                            let url:LCString? = user!.value(forKeyPath: "url") as? LCString
+                            self.push = push.value
+                            self.url = url!.value
+                            self.registerUM(appkey: appkey?.value)
+                            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "pushWebHaha"), object: nil)
+                        }
+                    })
+                }
+                else{
+                    let appkey:LCString? = user!.value(forKeyPath: "appkey") as? LCString
+                    let push:LCBool = user!.value(forKeyPath: "push") as! LCBool
+                    let url:LCString? = user!.value(forKeyPath: "url") as? LCString
+                    self.push = push.value
+                    self.url = url!.value
+                    self.registerUM(appkey: appkey?.value)
+                    NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "pushWebHaha"), object: nil)
+                }
                 print("登录 成功")
                 break
             case .failure(let error):

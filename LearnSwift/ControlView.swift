@@ -131,6 +131,7 @@ class ControlView: UIControl ,UIScrollViewDelegate,UICollectionViewDelegate,UICo
         
         self.rx.controlEvent(.touchUpInside).subscribe { (event) in
             self.hiddenMainView(animate: true)
+            UIApplication.shared.keyWindow?.endEditing(true)
         }.disposed(by: disposeBag)
         
         Observable.combineLatest(greenSlider.obserable, redSlider.obserable, blueSlider.obserable) { (g_value, red_value, blue_value) ->UIColor in
