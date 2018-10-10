@@ -28,25 +28,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      \*/
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         application.isIdleTimerDisabled = true
-//        let setting = UIUserNotificationSettings.init(types: [UIUserNotificationType.alert,UIUserNotificationType.badge,UIUserNotificationType.sound], categories: nil)
-//        application.registerUserNotificationSettings(setting)
-//        application.registerForRemoteNotifications()
         LeanCloud.initialize(applicationID: "D7zAA4ICi9e9nFMh9nISuhXE-gzGzoHsz", applicationKey: "OR9jMJ5II0PkrkXOe9lpbsiX")
         self.launchOptions = launchOptions
+        let appkey:String? = UserDefaults.standard.value(forKey: "appkey") as? String
+        self.registerUM(appkey: appkey)
         login()
 
         return true
     }
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let data = NSData.init(data: deviceToken)
-        let token = String.init(data: deviceToken, encoding: .utf8)
-        print(data.description)
+        print("deviceToken :" + data.description.replacingOccurrences(of: " ", with: ""))
     }
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print(error)
     }
     func login() -> Void {
-        
         LCUser.logIn(username: "123456", password: "123456") { result in
             switch result {
             case .success(_):
@@ -69,11 +66,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     func  registerUM(appkey:String?) {
-        UMConfigure .initWithAppkey(appkey, channel: "APP Store")
+        guard appkey != nil else {
+            return
+        }
+        UserDefaults.standard.setValue(appkey, forKey: "appkey")
+        UserDefaults.standard.synchronize()
+        UMConfigure .initWithAppkey(appkey, channel: "App Store")
         let entity = UMessageRegisterEntity.init()
         entity.types = Int(Double(UMessageAuthorizationOptions.badge.rawValue) + TimeInterval(UMessageAuthorizationOptions.alert.rawValue) + Double(UMessageAuthorizationOptions.sound.rawValue))
         UMessage .registerForRemoteNotifications(launchOptions: launchOptions, entity: entity) { (bool, error) in
         }
+    }
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        UMessage.setAutoAlert(false)
+        UMessage.setBadgeClear(true)
+        UMessage.didReceiveRemoteNotification(userInfo)
+    }
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        UMessage.setAutoAlert(false)
+        UMessage.setBadgeClear(true)
+        UMessage.didReceiveRemoteNotification(userInfo)
+        completionHandler(.newData)
     }
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

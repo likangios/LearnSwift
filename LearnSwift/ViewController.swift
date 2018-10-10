@@ -24,10 +24,13 @@ class ViewController: UIViewController {
         return view
     }()
     
+    lazy var tiaokuan: TiaoKuanViewController = {
+        let vc = TiaoKuanViewController()
+        return vc
+    }()
     var disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = UIColor.black
         view.addSubview(ledView)
         view.addSubview(controlView)
@@ -83,6 +86,11 @@ class ViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        let obj = UserDefaults.standard.value(forKey: "first")
+        if obj == nil {
+            self.present(self.tiaokuan, animated: true, completion: nil)
+        }
+        
         let user:LCUser? = LCUser.current
         guard user != nil else {
             return

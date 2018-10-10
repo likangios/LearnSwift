@@ -243,11 +243,11 @@ extension ControlView {
         mainView.addSubview(pageControl)
         mainView.snp.makeConstraints { (make) in
             make.left.right.bottom.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.3)
+            make.height.equalToSuperview().multipliedBy(0.35)
         }
         scrollView.snp.makeConstraints { (make) in
             make.left.right.top.equalToSuperview()
-            make.bottom.equalTo(-30)
+            make.bottom.equalTo(-20)
         }
         pageControl.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
@@ -331,7 +331,9 @@ extension ControlView {
         animateSegmentControl.snp.makeConstraints { (make) in
             make.left.equalTo(borderA.snp.right).offset(20)
             make.centerY.equalTo(borderA)
-            make.size.equalTo(CGSize(width: 250, height: 35))
+//            make.size.equalTo(CGSize(width: 250, height: 35))
+            make.height.equalTo(35)
+            make.right.equalTo(-15)
         }
     }
     func creatColorControlView(_ view:UIView) -> Void {

@@ -34,6 +34,7 @@
 		79DD6A01212FED950087747A /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DD6A00212FED940087747A /* SliderView.swift */; };
 		79DD6A03212FEE6A0087747A /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DD6A02212FEE6A0087747A /* ControlView.swift */; };
 		84728172215E8D5C00255C31 /* 167.png in Resources */ = {isa = PBXBuildFile; fileRef = 84728171215E8D5C00255C31 /* 167.png */; };
+		84AAC607216CE44D00E10DE3 /* TiaoKuanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AAC606216CE44C00E10DE3 /* TiaoKuanViewController.swift */; };
 		E7A09D8BBDD8FE370202D17E /* Pods_LearnSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DBC0F53941F63987AA82EF /* Pods_LearnSwift.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		79DD6A00212FED940087747A /* SliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderView.swift; sourceTree = "<group>"; };
 		79DD6A02212FEE6A0087747A /* ControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
 		84728171215E8D5C00255C31 /* 167.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 167.png; sourceTree = "<group>"; };
+		84AAC606216CE44C00E10DE3 /* TiaoKuanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiaoKuanViewController.swift; sourceTree = "<group>"; };
 		A57F31A097478B36D0310ACD /* Pods-LearnSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearnSwift/Pods-LearnSwift.release.xcconfig"; sourceTree = "<group>"; };
 		D23C4BA4F2CA55BCAC53AFDD /* Pods-LearnSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LearnSwift/Pods-LearnSwift.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,6 +148,7 @@
 				7913C23321300DC900126C77 /* swiftCommond.swift */,
 				79DD69E9212CED1F0087747A /* LEDView.swift */,
 				79DD6955212BB88B0087747A /* ViewController.swift */,
+				84AAC606216CE44C00E10DE3 /* TiaoKuanViewController.swift */,
 				79A46F64215E23E800A8A140 /* TestViewController.swift */,
 				79DD6A02212FEE6A0087747A /* ControlView.swift */,
 				798973F3213946EB00EAFAAC /* AudioCollectionViewCell.swift */,
@@ -319,6 +322,7 @@
 				79DD69EA212CED1F0087747A /* LEDView.swift in Sources */,
 				7913C23421300DC900126C77 /* swiftCommond.swift in Sources */,
 				79631D33216B3CEC0014BDF3 /* Test.m in Sources */,
+				84AAC607216CE44D00E10DE3 /* TiaoKuanViewController.swift in Sources */,
 				79DD6A01212FED950087747A /* SliderView.swift in Sources */,
 				798973F4213946EB00EAFAAC /* AudioCollectionViewCell.swift in Sources */,
 				79A46F65215E23E800A8A140 /* TestViewController.swift in Sources */,
@@ -501,7 +505,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = LearnSwift/LearnSwift.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = GM6C5S4FLT;
 				ENABLE_BITCODE = YES;
@@ -517,8 +521,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.luck.danmu.xiaozhushou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7fe595f4-e9b2-4d4c-a318-cc72b16481ef";
-				PROVISIONING_PROFILE_SPECIFIER = dm_dev;
+				PROVISIONING_PROFILE = "67385845-d2e5-41f7-af5b-ef7a913709b7";
+				PROVISIONING_PROFILE_SPECIFIER = dm_pro;
 				SWIFT_OBJC_BRIDGING_HEADER = "LearnSwift/LearnSwift-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
