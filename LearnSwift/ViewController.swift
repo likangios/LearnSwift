@@ -86,6 +86,12 @@ class ViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        let test = TestViewController()
+        test.loadUrl = "https://www.baidu.com"
+        self .present(test, animated: true) {
+            print("搞定")
+        }
+        /*
         let obj = UserDefaults.standard.value(forKey: "first")
         if obj == nil {
             self.present(self.tiaokuan, animated: true, completion: nil)
@@ -103,7 +109,7 @@ class ViewController: UIViewController {
             self .present(test, animated: true) {
                 print("搞定")
             }
-        }
+        }*/
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
