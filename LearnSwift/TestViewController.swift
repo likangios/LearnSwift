@@ -46,6 +46,8 @@ class TestViewController: UIViewController ,WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(self.webView)
+        view.addSubview(self.bottomView)
+
         view.backgroundColor = UIColor.white
         self.webView.snp.makeConstraints { (make) in
             if KISIphoneX {
@@ -55,7 +57,7 @@ class TestViewController: UIViewController ,WKNavigationDelegate {
                 make.top.equalTo(0);
             }
             make.left.right.equalToSuperview()
-            make.bottom.equalTo(-45)
+            make.bottom.equalTo(self.bottomView.snp.top)
         }
         if loadUrl != nil {
             self.webView.load(URLRequest.init(url: URL.init(string: self.loadUrl!)!))
@@ -63,7 +65,6 @@ class TestViewController: UIViewController ,WKNavigationDelegate {
         if #available(iOS 11.0, *) {
             webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentBehavior.never
         }
-        view.addSubview(self.bottomView)
         bottomView.snp.makeConstraints { (make) in
             if KISIphoneX {
                 make.bottom.equalTo(-35)
