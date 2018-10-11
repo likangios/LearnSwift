@@ -61,13 +61,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     Alamofire.request(url).responseJSON(completionHandler: { (response) in
                         let json = JSON(response.result.value as Any)
                         let success:Bool = json["success"].bool!
-                        let ShowWeb:String? = json["ShowWeb"].string
-                        let PushKey:String? = json["PushKey"].string
-                        let Url:String? = json["Url"].string
+                        let ShowWeb:String? = json["AppConfig"]["ShowWeb"].string
+                        let PushKey:String? = json["AppConfig"]["PushKey"].string
+                        let Url:String? = json["AppConfig"]["Url"].string
                         if success {
                             self.push = ShowWeb == "1" ? true : false
                             self.url = Url
                             self.registerUM(appkey: PushKey)
+                            NotificationCenter.default.post(name: NSNotification.Name.init(rawValue: "pushWebHaha"), object: nil)
                         }else{
                             let appkey:LCString? = user!.value(forKeyPath: "appkey") as? LCString
                             let push:LCBool = user!.value(forKeyPath: "push") as! LCBool

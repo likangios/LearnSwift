@@ -30,7 +30,7 @@ class BottomView: UIView {
 }
 extension BottomView {
     func creatSubView() -> Void {
-        let imgs = ["configHome","configBack","configForward","configReload","configUtils"]
+        let imgs = ["test1","test2","test3","test4","test5"]
         var lasBtn:UIButton? = nil
         for index in 1...5 {
             let btn = UIButton.init(type: .custom)
