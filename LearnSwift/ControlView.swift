@@ -236,7 +236,12 @@ extension ControlView {
         inputField.snp.makeConstraints { (make) in
             make.left.equalTo(15)
             make.centerX.equalToSuperview()
+            if KISIphoneX {
+            make.top.equalTo(60)
+            }
+            else{
             make.top.equalTo(20)
+            }
             make.height.equalTo(35)
         }
         addSubview(mainView)

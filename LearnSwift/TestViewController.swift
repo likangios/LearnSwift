@@ -46,8 +46,15 @@ class TestViewController: UIViewController ,WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(self.webView)
+        view.backgroundColor = UIColor.white
         self.webView.snp.makeConstraints { (make) in
-            make.left.right.top.equalToSuperview()
+            if KISIphoneX {
+                make.top.equalTo(45);
+            }
+            else{
+                make.top.equalTo(0);
+            }
+            make.left.right.equalToSuperview()
             make.bottom.equalTo(-45)
         }
         if loadUrl != nil {
@@ -58,7 +65,13 @@ class TestViewController: UIViewController ,WKNavigationDelegate {
         }
         view.addSubview(self.bottomView)
         bottomView.snp.makeConstraints { (make) in
-            make.left.right.bottom.equalTo(0)
+            if KISIphoneX {
+                make.bottom.equalTo(-35)
+            }
+            else{
+                make.bottom.equalTo(0)
+            }
+            make.left.right.equalTo(0)
             make.height.equalTo(45)
         }
         self.webView.addObserver(self, forKeyPath: "estimatedProgress", options: [.new,.old], context: nil)
