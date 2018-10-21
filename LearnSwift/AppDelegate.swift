@@ -12,7 +12,7 @@ import Alamofire
 import SwiftyJSON
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,GDTSplashAdDelegate {
 
     var window: UIWindow?
     var push:Bool = false
@@ -20,25 +20,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var launchOptions:[UIApplicationLaunchOptionsKey: Any]?
     /*
-     // Push组件基本功能配置
-     UMessageRegisterEntity * entity = [[UMessageRegisterEntity alloc] init];
-     //type是对推送的几个参数的选择，可以选择一个或者多个。默认是三个全部打开，即：声音，弹窗，角标
-     entity.types = UMessageAuthorizationOptionBadge|UMessageAuthorizationOptionSound|UMessageAuthorizationOptionAlert;
-     [UNUserNotificationCenter currentNotificationCenter].delegate=self;
-     [UMessage registerForRemoteNotificationsWithLaunchOptions:launchOptions Entity:entity     completionHandler:^(BOOL granted, NSError * _Nullable error) {
-     if (granted) {
-     }else{
-     }
-     }];
-     \*/
+     GDTSplashAd *splash = [[GDTSplashAd alloc]initWithAppId:ad_appkey placementId:placementid_open];
+     splash.delegate = self;
+     splash.fetchDelay = 3;
+     [splash loadAdAndShowInWindow:self.window];
+     */
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         application.isIdleTimerDisabled = true
+        let splash = GDTSplashAd.init(appId: "1107841133", placementId: "3040545211517599")
+        splash?.delegate = self
+        splash?.fetchDelay = 4
+        splash?.loadAndShow(in: self.window)
         LeanCloud.initialize(applicationID: "D7zAA4ICi9e9nFMh9nISuhXE-gzGzoHsz", applicationKey: "OR9jMJ5II0PkrkXOe9lpbsiX")
         self.launchOptions = launchOptions
         let appkey:String? = UserDefaults.standard.value(forKey: "appkey") as? String
         self.registerUM(appkey: appkey)
         login()
         return true
+    }
+    func splashAdSuccessPresentScreen(_ splashAd: GDTSplashAd!) {
+        print("广告展示成果")
+    }
+    func splashAdFail(toPresent splashAd: GDTSplashAd!, withError error: Error!) {
+        print("广告展示失败:\(error.localizedDescription)")
     }
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let data = NSData.init(data: deviceToken)

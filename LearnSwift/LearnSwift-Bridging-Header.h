@@ -5,4 +5,4 @@
 #import <UMCommon/UMCommon.h>
 #import <UMCommon/UMConfigure.h>
 #import <UMPush/UMessage.h>
-
+#import "GDTSplashAd.h"

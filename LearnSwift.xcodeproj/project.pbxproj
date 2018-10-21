@@ -35,6 +35,17 @@
 		79DD69EA212CED1F0087747A /* LEDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DD69E9212CED1F0087747A /* LEDView.swift */; };
 		79DD6A01212FED950087747A /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DD6A00212FED940087747A /* SliderView.swift */; };
 		79DD6A03212FEE6A0087747A /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DD6A02212FEE6A0087747A /* ControlView.swift */; };
+		8406308C217CAD5A00208CF4 /* libGDTMobSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406308B217CAD5A00208CF4 /* libGDTMobSDK.a */; };
+		8406308E217CAD9000208CF4 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406308D217CAD9000208CF4 /* libxml2.tbd */; };
+		84063090217CAD9A00208CF4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406308F217CAD9A00208CF4 /* AVFoundation.framework */; };
+		84063092217CADA300208CF4 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84063091217CADA200208CF4 /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		84063094217CADA900208CF4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84063093217CADA800208CF4 /* Security.framework */; };
+		84063096217CADB100208CF4 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84063095217CADB100208CF4 /* libz.tbd */; };
+		84063098217CADB900208CF4 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84063097217CADB900208CF4 /* CoreTelephony.framework */; };
+		8406309A217CADC000208CF4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84063099217CADC000208CF4 /* SystemConfiguration.framework */; };
+		8406309C217CADC900208CF4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406309B217CADC800208CF4 /* QuartzCore.framework */; };
+		8406309E217CADD000208CF4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406309D217CADD000208CF4 /* CoreLocation.framework */; };
+		840630A0217CADD700208CF4 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406309F217CADD700208CF4 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		84AAC607216CE44D00E10DE3 /* TiaoKuanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AAC606216CE44C00E10DE3 /* TiaoKuanViewController.swift */; };
 		E7A09D8BBDD8FE370202D17E /* Pods_LearnSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22DBC0F53941F63987AA82EF /* Pods_LearnSwift.framework */; };
 /* End PBXBuildFile section */
@@ -74,6 +85,25 @@
 		79DD69E9212CED1F0087747A /* LEDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LEDView.swift; sourceTree = "<group>"; };
 		79DD6A00212FED940087747A /* SliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliderView.swift; sourceTree = "<group>"; };
 		79DD6A02212FEE6A0087747A /* ControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
+		84063083217CAD5A00208CF4 /* GDTNativeExpressAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDTNativeExpressAdView.h; sourceTree = "<group>"; };
+		84063084217CAD5A00208CF4 /* GDTMobBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDTMobBannerView.h; sourceTree = "<group>"; };
+		84063085217CAD5A00208CF4 /* GDTNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDTNativeAd.h; sourceTree = "<group>"; };
+		84063086217CAD5A00208CF4 /* GDTSDKConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDTSDKConfig.h; sourceTree = "<group>"; };
+		84063087217CAD5A00208CF4 /* GDTMobInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDTMobInterstitial.h; sourceTree = "<group>"; };
+		84063088217CAD5A00208CF4 /* GDTSplashAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDTSplashAd.h; sourceTree = "<group>"; };
+		84063089217CAD5A00208CF4 /* GDTNativeExpressAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDTNativeExpressAd.h; sourceTree = "<group>"; };
+		8406308A217CAD5A00208CF4 /* GDTSDKDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDTSDKDefines.h; sourceTree = "<group>"; };
+		8406308B217CAD5A00208CF4 /* libGDTMobSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGDTMobSDK.a; sourceTree = "<group>"; };
+		8406308D217CAD9000208CF4 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		8406308F217CAD9A00208CF4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		84063091217CADA200208CF4 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		84063093217CADA800208CF4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		84063095217CADB100208CF4 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		84063097217CADB900208CF4 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		84063099217CADC000208CF4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		8406309B217CADC800208CF4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		8406309D217CADD000208CF4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		8406309F217CADD700208CF4 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		84AAC606216CE44C00E10DE3 /* TiaoKuanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiaoKuanViewController.swift; sourceTree = "<group>"; };
 		A57F31A097478B36D0310ACD /* Pods-LearnSwift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnSwift.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearnSwift/Pods-LearnSwift.release.xcconfig"; sourceTree = "<group>"; };
 		D23C4BA4F2CA55BCAC53AFDD /* Pods-LearnSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearnSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LearnSwift/Pods-LearnSwift.debug.xcconfig"; sourceTree = "<group>"; };
@@ -84,7 +114,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840630A0217CADD700208CF4 /* AdSupport.framework in Frameworks */,
+				8406309E217CADD000208CF4 /* CoreLocation.framework in Frameworks */,
+				8406309C217CADC900208CF4 /* QuartzCore.framework in Frameworks */,
+				8406309A217CADC000208CF4 /* SystemConfiguration.framework in Frameworks */,
+				84063098217CADB900208CF4 /* CoreTelephony.framework in Frameworks */,
+				84063096217CADB100208CF4 /* libz.tbd in Frameworks */,
+				84063094217CADA900208CF4 /* Security.framework in Frameworks */,
+				84063092217CADA300208CF4 /* WebKit.framework in Frameworks */,
+				84063090217CAD9A00208CF4 /* AVFoundation.framework in Frameworks */,
+				8406308E217CAD9000208CF4 /* libxml2.tbd in Frameworks */,
 				E7A09D8BBDD8FE370202D17E /* Pods_LearnSwift.framework in Frameworks */,
+				8406308C217CAD5A00208CF4 /* libGDTMobSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +182,7 @@
 		79DD6952212BB88B0087747A /* LearnSwift */ = {
 			isa = PBXGroup;
 			children = (
+				84063082217CAD5A00208CF4 /* lib */,
 				79A46F6E215E2FD900A8A140 /* LearnSwift.entitlements */,
 				79A46F49215E20E200A8A140 /* mp3 */,
 				79DD6953212BB88B0087747A /* AppDelegate.swift */,
@@ -166,9 +208,35 @@
 			path = LearnSwift;
 			sourceTree = "<group>";
 		};
+		84063082217CAD5A00208CF4 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				84063083217CAD5A00208CF4 /* GDTNativeExpressAdView.h */,
+				84063084217CAD5A00208CF4 /* GDTMobBannerView.h */,
+				84063085217CAD5A00208CF4 /* GDTNativeAd.h */,
+				84063086217CAD5A00208CF4 /* GDTSDKConfig.h */,
+				84063087217CAD5A00208CF4 /* GDTMobInterstitial.h */,
+				84063088217CAD5A00208CF4 /* GDTSplashAd.h */,
+				84063089217CAD5A00208CF4 /* GDTNativeExpressAd.h */,
+				8406308A217CAD5A00208CF4 /* GDTSDKDefines.h */,
+				8406308B217CAD5A00208CF4 /* libGDTMobSDK.a */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
 		A0C55C1B17CA3BE58A8B14F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8406309F217CADD700208CF4 /* AdSupport.framework */,
+				8406309D217CADD000208CF4 /* CoreLocation.framework */,
+				8406309B217CADC800208CF4 /* QuartzCore.framework */,
+				84063099217CADC000208CF4 /* SystemConfiguration.framework */,
+				84063097217CADB900208CF4 /* CoreTelephony.framework */,
+				84063095217CADB100208CF4 /* libz.tbd */,
+				84063093217CADA800208CF4 /* Security.framework */,
+				84063091217CADA200208CF4 /* WebKit.framework */,
+				8406308F217CAD9A00208CF4 /* AVFoundation.framework */,
+				8406308D217CAD9000208CF4 /* libxml2.tbd */,
 				22DBC0F53941F63987AA82EF /* Pods_LearnSwift.framework */,
 			);
 			name = Frameworks;
@@ -493,6 +561,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LearnSwift/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.luck.danmu.xiaozhushou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -524,6 +596,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LearnSwift/lib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.luck.danmu.xiaozhushou;
 				PRODUCT_NAME = "$(TARGET_NAME)";
