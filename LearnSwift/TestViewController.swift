@@ -93,6 +93,20 @@ class TestViewController: UIViewController ,WKNavigationDelegate {
         self.progressView.setProgress(0, animated: true)
         self.progressView.isHidden = true
     }
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        
+        guard navigationAction.request.url?.absoluteString != nil else {
+            decisionHandler(WKNavigationActionPolicy.cancel )
+            return
+        }
+        if gotoOtherApp(url: navigationAction.request.url?.absoluteString!) {
+            decisionHandler(WKNavigationActionPolicy.cancel )
+        }
+        else{
+            decisionHandler(WKNavigationActionPolicy.allow )
+
+        }
+    }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "estimatedProgress" {
             let newprogress:NSNumber = change?[.newKey]! as! NSNumber
