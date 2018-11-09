@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GDTSplashAdDelegate {
         print(error)
     }
     func login() -> Void {
-        LCUser.logIn(username: "1234567", password: "123456") { result in
+        LCUser.logIn(username: "123456", password: "123456") { result in
             switch result {
             case .success(_):
                 let user:LCUser? = LCUser.current

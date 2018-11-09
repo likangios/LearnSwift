@@ -26,7 +26,6 @@
 		79A46F61215E20E200A8A140 /* lx3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 79A46F54215E20E200A8A140 /* lx3.mp3 */; };
 		79A46F62215E20E200A8A140 /* lx1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 79A46F55215E20E200A8A140 /* lx1.mp3 */; };
 		79A46F63215E20E200A8A140 /* lx4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 79A46F56215E20E200A8A140 /* lx4.mp3 */; };
-		79A46F65215E23E800A8A140 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A46F64215E23E800A8A140 /* TestViewController.swift */; };
 		79BEAEB52138D113000DA0B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79BEAEB42138D113000DA0B6 /* Assets.xcassets */; };
 		79DD6954212BB88B0087747A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DD6953212BB88B0087747A /* AppDelegate.swift */; };
 		79DD6956212BB88B0087747A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DD6955212BB88B0087747A /* ViewController.swift */; };
@@ -399,7 +398,6 @@
 				84AAC607216CE44D00E10DE3 /* TiaoKuanViewController.swift in Sources */,
 				79DD6A01212FED950087747A /* SliderView.swift in Sources */,
 				798973F4213946EB00EAFAAC /* AudioCollectionViewCell.swift in Sources */,
-				79A46F65215E23E800A8A140 /* TestViewController.swift in Sources */,
 				79DD6A03212FEE6A0087747A /* ControlView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

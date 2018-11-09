@@ -8,10 +8,14 @@
 
 import UIKit
 import WebKit
-class TiaoKuanViewController: UIViewController {
+class TiaoKuanViewController: UIViewController ,WKNavigationDelegate,UIScrollViewDelegate{
     
+    var hasHiddenRecommond:Bool = false
+    var hasHiddenPay:Bool = false
     lazy var webView: WKWebView = {
         let web = WKWebView.init()
+        web.navigationDelegate = self
+        web.scrollView.delegate = self
         return web
     }()
     lazy var agreeButton: UIButton = {
@@ -22,6 +26,7 @@ class TiaoKuanViewController: UIViewController {
         btn.layer.cornerRadius = 20
         return btn
     }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         UserDefaults.standard.setValue("1", forKey: "first")
@@ -39,6 +44,35 @@ class TiaoKuanViewController: UIViewController {
             make.size.equalTo(CGSize(width: 200, height: 40))
         }
         self.agreeButton.addTarget(self, action: #selector(buttonclick), for: UIControlEvents.touchUpInside)
+    }
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        webView.evaluateJavaScript("document.getElementsByClassName('header-wrap')[0].style.display = 'none'") { (obj, error) in
+            
+        }
+        webView.evaluateJavaScript("document.getElementsByClassName('footer-wrap')[0].style.display = 'none'") { (obj, error) in
+            
+        }
+        webView.evaluateJavaScript("document.getElementsByClassName('panel')[0].style.display = 'none'") { (obj, error) in
+            
+        }
+        webView.evaluateJavaScript("document.getElementsByClassName('app-open')[0].style.display = 'none'") { (obj, error) in
+            
+        }
+        webView.evaluateJavaScript("document.getElementsByClassName('open-app-btn')[0].style.display = 'none'") { (obj, error) in
+            
+        }
+    }
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !self.hasHiddenRecommond {
+            webView.evaluateJavaScript("document.getElementsByClassName('recommend-note')[0].style.display = 'none'") { (obj, error) in
+                
+            }
+        }
+        if !self.hasHiddenPay {
+            webView.evaluateJavaScript("document.getElementsByClassName('btn btn-pay reward-button')[0].style.display = 'none'") { (obj, error) in
+                
+            }
+        }     
     }
 
     @objc func buttonclick() -> Void {

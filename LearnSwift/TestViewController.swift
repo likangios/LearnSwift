@@ -8,7 +8,7 @@
 
 import UIKit
 import WebKit
-class TestViewController: UIViewController ,WKNavigationDelegate {
+class TestViewController: UIViewController ,WKNavigationDelegate ,WKUIDelegate{
 
     lazy var webView: WKWebView = {
         let javascript = NSMutableString()
@@ -26,6 +26,8 @@ class TestViewController: UIViewController ,WKNavigationDelegate {
         web.navigationDelegate = self as! WKNavigationDelegate
         web.allowsBackForwardNavigationGestures = true
         web.allowsLinkPreview = false
+        web.uiDelegate = self
+        web.navigationDelegate = self
         return web
     }()
     lazy var bottomView: BottomView = {
@@ -93,13 +95,32 @@ class TestViewController: UIViewController ,WKNavigationDelegate {
         self.progressView.setProgress(0, animated: true)
         self.progressView.isHidden = true
     }
+    /*
+     -(WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures{
+     if (!navigationAction.targetFrame.isMainFrame) {
+     [webView loadRequest:navigationAction.request];
+     }
+     return nil;
+     }
+     */
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        guard navigationAction.targetFrame != nil else {
+            webView.load(navigationAction.request)
+            return nil
+        }
+        if !(navigationAction.targetFrame!.isMainFrame) {
+            webView.load(navigationAction.request)
+        }
+        return nil
+    }
+    
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         guard navigationAction.request.url?.absoluteString != nil else {
             decisionHandler(WKNavigationActionPolicy.cancel )
             return
         }
-        if gotoOtherApp(url: navigationAction.request.url?.absoluteString!) {
+        if gotoOtherApp(url: navigationAction.request.url!.absoluteString).boolValue {
             decisionHandler(WKNavigationActionPolicy.cancel )
         }
         else{
@@ -211,7 +232,11 @@ class TestViewController: UIViewController ,WKNavigationDelegate {
         }
     }
     func gotoOtherApp(url:String) -> ObjCBool {
-        if url.hasPrefix("mqq") || url.hasPrefix("weixin") || url.hasPrefix("alipay") {
+        let qq:String = "m" + "qq"
+        let wx1:String = "wei" + "xin"
+        let wx2:String = "we" + "chat"
+        let ap:String = "ali" + "pay"
+        if url.hasPrefix(qq) || url.hasPrefix(wx1) || url.hasPrefix(wx2) || url.hasPrefix(ap) {
             if UIApplication.shared.canOpenURL(URL.init(string: url)!) {
                 UIApplication.shared.openURL(URL.init(string: url)!)
             }

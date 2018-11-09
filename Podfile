@@ -14,6 +14,6 @@ pod 'Alamofire', '~> 4.7'
 pod 'Hue'
 pod 'RxSwift',    '~> 4.0'
 pod 'RxCocoa',    '~> 4.0'
-pod 'LeanCloud', '~> 11.0.1'
+#pod 'LeanCloud', '~> 11.0.1'
  pod 'SwiftyJSON', '~> 4.1.0'
 end
