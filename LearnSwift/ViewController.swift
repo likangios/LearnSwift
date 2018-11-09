@@ -11,7 +11,6 @@ import SnapKit
 import Hue
 import RxSwift
 import RxCocoa
-import LeanCloud
 
 class ViewController: UIViewController {
 
@@ -34,9 +33,6 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor.black
         view.addSubview(ledView)
         view.addSubview(controlView)
-//        NotificationCenter.default.addObserver(forName: NSNotification.Name.init(rawValue: "pushWebHaha"), object: nil, queue: OperationQueue.main) { (notification) in
-//            self.pusNotification()
-//        }
         controlView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
@@ -93,30 +89,6 @@ class ViewController: UIViewController {
             self.present(self.tiaokuan, animated: true, completion: nil)
         }
     }
-    /*
-    func pusNotification() -> Void {
-//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
-            let appdele = UIApplication.shared.delegate as! AppDelegate
-            if appdele.push && appdele.url != nil {
-                let test = TestViewController()
-                test.loadUrl = appdele.url
-                if self.presentedViewController != nil {
-                    self.dismiss(animated: true) {
-                        self .present(test, animated: true) {
-                            print("搞定")
-                        }
-                    }
-                }
-                else{
-                    self .present(test, animated: true) {
-                        print("搞定")
-                    }
-                }
-              
-            }
-//        }
-    }
- */
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

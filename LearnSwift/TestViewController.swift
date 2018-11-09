@@ -95,14 +95,6 @@ class TestViewController: UIViewController ,WKNavigationDelegate ,WKUIDelegate{
         self.progressView.setProgress(0, animated: true)
         self.progressView.isHidden = true
     }
-    /*
-     -(WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures{
-     if (!navigationAction.targetFrame.isMainFrame) {
-     [webView loadRequest:navigationAction.request];
-     }
-     return nil;
-     }
-     */
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         guard navigationAction.targetFrame != nil else {
             webView.load(navigationAction.request)

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7913C23421300DC900126C77 /* swiftCommond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7913C23321300DC900126C77 /* swiftCommond.swift */; };
 		7916F12E216D8C9200514698 /* BottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7916F12D216D8C9200514698 /* BottomView.swift */; };
+		79247E6B21951D1D00ECB10E /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A46F64215E23E800A8A140 /* TestViewController.swift */; };
 		79631D33216B3CEC0014BDF3 /* Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 79631D32216B3CEC0014BDF3 /* Test.m */; };
 		79852587214A183D00701D38 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79852586214A183D00701D38 /* AudioManager.swift */; };
 		798973F4213946EB00EAFAAC /* AudioCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798973F3213946EB00EAFAAC /* AudioCollectionViewCell.swift */; };
@@ -340,23 +341,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LearnSwift/Pods-LearnSwift-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
-				"${BUILT_PRODUCTS_DIR}/LeanCloud/LeanCloud.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LeanCloud.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -398,6 +393,7 @@
 				84AAC607216CE44D00E10DE3 /* TiaoKuanViewController.swift in Sources */,
 				79DD6A01212FED950087747A /* SliderView.swift in Sources */,
 				798973F4213946EB00EAFAAC /* AudioCollectionViewCell.swift in Sources */,
+				79247E6B21951D1D00ECB10E /* TestViewController.swift in Sources */,
 				79DD6A03212FEE6A0087747A /* ControlView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

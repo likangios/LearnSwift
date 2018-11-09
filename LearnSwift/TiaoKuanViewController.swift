@@ -61,6 +61,9 @@ class TiaoKuanViewController: UIViewController ,WKNavigationDelegate,UIScrollVie
         webView.evaluateJavaScript("document.getElementsByClassName('open-app-btn')[0].style.display = 'none'") { (obj, error) in
             
         }
+        webView.evaluateJavaScript("document.getElementsByClassName('article-info')[0].style.display = 'none'") { (obj, error) in
+            
+        }
     }
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !self.hasHiddenRecommond {
